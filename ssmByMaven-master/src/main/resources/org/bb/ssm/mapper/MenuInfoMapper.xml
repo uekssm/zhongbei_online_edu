@@ -19,7 +19,7 @@
   </select>
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT a.*,b.name pname FROM uek_privilege_menu a left join uek_privilege_menu b on a.parent_id=b.id 
+  	SELECT * FROM uek_privilege_menu 
   </select>
   
   <!-- 取得记录的总数 -->  
@@ -28,9 +28,9 @@
 	</select>  
   
   <select id="findAllByPage" resultMap="BaseResultMap">
-  	SELECT * FROM uek_privilege_menu
-  			where name like CONCAT('%', #{searchname}, '%') 
-  			and target_href like CONCAT('%', #{url}, '%')
+  	SELECT a.*,b.name pname FROM uek_privilege_menu a left join uek_privilege_menu b on a.parent_id=b.id
+  			where a.name like CONCAT('%', #{searchname}, '%') 
+  			and a.target_href like CONCAT('%', #{url}, '%')
   	 limit #{pageIndex},#{limit}
   		
   </select>
