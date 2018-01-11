@@ -17,8 +17,14 @@
   </select>
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT * FROM uek_privilege_role 
+  	SELECT * FROM uek_privilege_role where name like CONCAT('%', #{searchname}, '%') limit #{pageIndex},#{limit}
   </select>
+  
+  <!-- 取得记录的总数 -->  
+	<select id="getRoleCount" resultType="java.lang.Integer">  
+	  SELECT COUNT(*) FROM uek_privilege_role where name like CONCAT('%', #{searchname}, '%') 
+	</select>  
+  
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from uek_privilege_role

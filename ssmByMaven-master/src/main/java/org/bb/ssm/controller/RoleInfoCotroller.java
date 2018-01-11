@@ -42,14 +42,15 @@ public class RoleInfoCotroller {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/getAllRole")
+	@RequestMapping(value="/getAllRole",method={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public String getAllRole(Map<String, Object> map){
-		List<Role> roleList = roleInfoService.findAll();
+	public String getAllRole(@RequestParam(value="limit",required=false) Integer limit,@RequestParam(value="pageIndex",required=false) Integer pageIndex,@RequestParam(value="searchname",required=false) String searchname){
+		pageIndex=pageIndex*limit;
+		List<Role> roleList = roleInfoService.findAll(limit,pageIndex,searchname);
 		HashMap<String,Object > tUser = new HashMap<String,Object >();
 		
 		tUser.put("rows", roleList);
-		tUser.put("results", roleList.size());
+		tUser.put("results", roleInfoService.totalCount(searchname));
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {

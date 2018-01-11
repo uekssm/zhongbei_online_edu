@@ -29,7 +29,7 @@
           <div class="control-group span7">
             <label class="control-label">名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="name">
+              <input type="text" class="control-text" name="searchname">
             </div>
           </div>
           <div class="span3 ">
@@ -173,7 +173,7 @@
       grid = search.get('grid');
 
     function addFunction(){
-      var newData = {isNew : true}; //标志是新增加的记录
+      var newData = {isNew : true,id:0}; //标志是新增加的记录
       editing.add(newData,'name'); //添加记录后，直接编辑
     }
 

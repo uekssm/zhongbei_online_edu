@@ -34,14 +34,7 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 	 */
 	private RoleInfoMapper mapper;
 
-	/**
-	 * 查询RoleInfo表所有数据
-	 */
-	@Override
-	public List<Role> findAll() {
-		List<Role> list = mapper.findAll();
-		return list;
-	}
+	
 	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -71,6 +64,18 @@ public class RoleInfoServiceImpl implements RoleInfoService {
 	@Override
 	public int updateByPrimaryKey(Role record) {
 		return mapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<Role> findAll(Integer limit, Integer pageIndex,
+			String searchname) {
+		List<Role> list = mapper.findAll(limit,pageIndex,searchname);
+		return list;
+	}
+
+	@Override
+	public int totalCount(String searchname) {
+		return (int) mapper.getRoleCount(searchname);
 	}
 
 }

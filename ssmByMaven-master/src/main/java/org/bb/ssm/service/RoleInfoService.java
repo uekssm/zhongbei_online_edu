@@ -15,7 +15,7 @@ import org.bb.ssm.model.Role;
  */
 public interface RoleInfoService {
 
-	List<Role> findAll();
+	List<Role> findAll(Integer limit, Integer pageIndex, String searchname);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -28,4 +28,6 @@ public interface RoleInfoService {
 	int updateByPrimaryKeySelective(Role record);
 
 	int updateByPrimaryKey(Role record);
+
+	int totalCount(String searchname);
 }
