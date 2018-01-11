@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.bb.ssm.mapper.MenuInfoMapper;
 import org.bb.ssm.model.Menu;
+import org.bb.ssm.model.University;
 import org.bb.ssm.service.MenuInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,6 +83,19 @@ public class MenuInfoServiceImpl implements MenuInfoService {
 	@Override
 	public List<Menu> findPage() {
 		List<Menu> list = mapper.findPage();
+		return list;
+	}
+
+	public int totalCount(String searchname,String url){
+		return (int) mapper.getMenuCount(searchname,url);
+		
+	}
+
+	@Override
+	public List<Menu> findAllByPage(Integer limit, Integer pageIndex,
+			String searchname, String url) {
+
+		List<Menu> list = mapper.findAllByPage(limit,pageIndex,searchname,url);
 		return list;
 	}
 

@@ -32,4 +32,9 @@ public interface MenuInfoService {
 	List<Menu> findOne();
 	
 	List<Menu> findPage();
+
+	int totalCount(String searchname, String url);
+
+	List<Menu> findAllByPage(Integer limit, Integer pageIndex,
+			String searchname, String url);
 }

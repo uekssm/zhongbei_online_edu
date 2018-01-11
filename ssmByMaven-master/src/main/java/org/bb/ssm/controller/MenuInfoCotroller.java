@@ -134,15 +134,16 @@ public class MenuInfoCotroller {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllMenu")
+	@RequestMapping(value = "/getPageMenu",method={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public String getAllMenu(Map<String, Object> map) {
-		List<Menu> menuList = menuInfoService.findAll();
+	public String getPageMenu(@RequestParam(value="limit",required=false) Integer limit,@RequestParam(value="pageIndex",required=false) Integer pageIndex,@RequestParam(value="searchname",required=false) String searchname,@RequestParam(value="url",required=false) String url) {
+		pageIndex=pageIndex*limit;
+		List<Menu> menuList = menuInfoService.findAllByPage(limit,pageIndex,searchname,url);
 		
 		HashMap<String,Object > tUser = new HashMap<String,Object >();
 		
 		tUser.put("rows", menuList);
-		tUser.put("results", menuList.size());
+		tUser.put("results", menuInfoService.totalCount(searchname,url));
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -164,7 +165,7 @@ public class MenuInfoCotroller {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/getPageMenu")
+	/*@RequestMapping(value = "/getPageMenu")
 	@ResponseBody
 	public String getPageMenu(Map<String, Object> map) {
 		List<Menu> menuList = menuInfoService.findPage();
@@ -186,7 +187,7 @@ public class MenuInfoCotroller {
 			e.printStackTrace();
 		}
 		return null;
-	}
+	}*/
 	
 	/**
 	 * 通过handler前往添加菜单页面

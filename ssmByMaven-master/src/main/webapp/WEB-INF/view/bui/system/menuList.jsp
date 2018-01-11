@@ -37,7 +37,7 @@
           <div class="control-group span7">
             <label class="control-label">名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="name">
+              <input type="text" class="control-text" name="searchname">
             </div>
           </div>
           <div class="control-group span7">
@@ -131,7 +131,7 @@
       columns = [
           {title:'编号',dataIndex:'id',width:80},
           {title:'名称',dataIndex:'name',width:100},
-          {title:'url',dataIndex:'target_href',width:300},
+          {title:'url',dataIndex:'target_href',width:200},
           {title:'父菜单',dataIndex:'pname',width:100},/* 
           {title:'状态',dataIndex:'status',width:100,visible:false}, */
           {title:'操作',dataIndex:'',width:200,renderer : function(value,obj){
@@ -174,7 +174,7 @@
       grid = search.get('grid');
 
     function addFunction(){
-      var newData = {isNew : true}; //标志是新增加的记录
+      var newData = {isNew : true,id:0}; //标志是新增加的记录
       editing.add(newData,'name'); //添加记录后，直接编辑
     }
 
