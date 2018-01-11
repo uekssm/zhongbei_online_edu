@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.bb.ssm.mapper.MenuInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.bb.ssm.model.Menu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="target_href" property="target_href" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parent_id" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, target_href, parent_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from uek_privilege_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+  	SELECT * FROM uek_privilege_menu 
+  </select>
+  
+  <select id="findPage" resultMap="BaseResultMap">
+  	SELECT a.*,b.name as pname FROM uek_privilege_menu a left join uek_privilege_menu b on a.parent_id=b.id limit 0,10
+  </select>
+  
+  <select id="findOne" resultMap="BaseResultMap">
+  	SELECT * FROM uek_privilege_menu where parent_id is null
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from uek_privilege_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.bb.ssm.model.Menu" >
+    insert into uek_privilege_menu (id, name, parent_id, 
+      target_href)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parent_id,jdbcType=INTEGER}, 
+      #{target_href,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.bb.ssm.model.Menu" >
+    insert into uek_privilege_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="parent_id != null" >
+        parent_id,
+      </if>
+      <if test="target_href != null" >
+        target_href,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_id != null" >
+        #{parent_id,jdbcType=INTEGER},
+      </if>
+      <if test="target_href != null" >
+        #{target_href,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.bb.ssm.model.Menu" >
+    update uek_privilege_menu
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_id != null" >
+        parent_id = #{parent_id,jdbcType=INTEGER},
+      </if>
+      <if test="target_href != null" >
+        target_href = #{target_href,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.bb.ssm.model.Menu" >
+    update uek_privilege_menu
+    set name = #{name,jdbcType=VARCHAR},
+      parent_id = #{parent_id,jdbcType=INTEGER},
+      target_href = #{target_href,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

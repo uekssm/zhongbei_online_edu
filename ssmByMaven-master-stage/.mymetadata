@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ssm Maven Webapp Stage"
+  id="myeclipse.1515216718059"
+  context-root="/ssmStage"
+  j2ee-spec="6.0"
+  archive="ssm Maven Webapp Stage.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+

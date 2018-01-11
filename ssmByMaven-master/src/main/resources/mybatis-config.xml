@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- 配置打印 SQL 到控制台 以及懒加载 -->
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<!-- 打开延迟加载的全局开关 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="aggressiveLazyLoading" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<!-- 为org.bb.ssm.model.User 设置一个别名 UserInfo -->
+	<!-- 为org.bb.ssm.model.Menu 设置一个别名 MenuInfo -->
+	<!-- 为org.bb.ssm.model.Role 设置一个别名 RoleInfo -->
+	<typeAliases>
+		<typeAlias type="org.bb.ssm.model.User" alias="UserInfo"/>
+		<typeAlias type="org.bb.ssm.model.Menu" alias="MenuInfo"/>
+		<typeAlias type="org.bb.ssm.model.Role" alias="RoleInfo"/>
+	</typeAliases>
+	
+	
+	<mappers>
+		<package name="org.bb.ssm.mapper"/>
+	</mappers>
+</configuration>

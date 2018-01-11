@@ -1,0 +1,465 @@
+@import url('base.css');
+body{
+	background: #f8f8f8;
+}
+/* 详细信息开始 */
+#more_detail{
+	width: 100%;
+	height: 190px;
+	overflow: hidden;
+}
+#more_detail .more_main{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+/* 面包屑 */
+#more_detail .more_bread{
+	width: 100%;
+	height: auto;
+	display: flex;
+	padding: 51px 0 28px 0;
+}
+#more_detail .more_bread img:first-of-type{
+	width: 17px;
+	height: 15px;
+	margin: 2px 7px 0 0;
+}
+#more_detail .more_bread img:nth-of-type(2){
+	width: 11px;
+	height: 10px;
+	margin: 4px 11px 0 0;
+}
+#more_detail .more_bread img:nth-of-type(3){
+	width: 18px;
+	height: 16px;
+	margin: 3px 7px 0 0;
+}
+#more_detail .more_bread a:first-of-type{
+	font-size:18px;
+	color: #8d8d8d;
+	margin-right: 10px;
+}
+#more_detail .more_bread a:nth-of-type(2){
+	font-size:18px;
+	color: #343434;
+	margin-top: 2px;
+}
+/* 面包屑结束 */
+#more_detail .more_xinxi{
+	width: 100%;
+	height: 53px;
+	border-bottom: 1px solid #e5e5e5;
+	display: flex;
+}
+#more_detail .more_xinxi h2{
+	font-size: 18px;
+	color: #000;
+	margin:0 30px 0 3px;
+    line-height: 53px;
+}
+#more_detail .more_xinxi h3{
+	font-size: 16px;
+	color: #737373;
+    line-height: 53px;
+}
+/* 详细信息结束 */
+/* 主体视频开始 */
+#content{
+	width: 1200px;
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+}
+#content .content_left{
+	width: 616px;
+	height: 100%;
+	float: left;
+}
+#content .content_left .content_vdisplay{
+	width: 100%;
+	height: 418px;
+	margin-bottom: 25px;
+}
+#content .content_left .content_vdisplay video{
+	display: block;
+	width: 100%;
+	height: 344px;
+}
+
+
+#content .content_left .content_vdisplay .more_title{
+	width: 100%;
+	height: 74px;
+	box-sizing: border-box;
+	padding: 14px 260px 0 0px;
+	display: flex;
+	flex-wrap: wrap;
+}
+#content .content_left .content_vdisplay .more_title h2{
+    font-size: 18px;
+    color: #323232;
+    line-height: 34px;
+    margin-right: 20px;
+}
+#content .content_left .content_vdisplay .more_title h3{
+   width: 130px;
+	float: left;
+	line-height: 34px;
+	overflow: hidden;
+	font-size: 14px;
+	color: #737373;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#content .content_left .content_vdisplay .more_title h4{
+    font-size: 14px;
+    color: #707070;
+    line-height: 26px;
+    margin-right: 35px;
+}
+#content .content_left .content_vdisplay .more_title h5{
+    font-size: 14px;
+    color: #4a4a4a;
+    line-height: 26px;
+}
+
+/* 主体视频结束 */
+/* 猜你喜欢开始 */
+#content .content_left .content_like{
+	width: 100%;
+	height: auto;
+}
+#content .content_left .content_lT{
+	width: 100%;
+	height: 34px;
+	box-sizing: border-box;
+	border-bottom: 1px dashed #959595;
+	display: flex;
+	justify-content: space-between;
+	font-size: 16px;
+	color: #323232;
+	line-height: 33px;
+	margin-bottom: 16px;
+}
+#content .content_left .content_lT h1{
+	font-weight: bold;
+}
+#content .content_left .content_lT a{
+	color: #323232;
+}
+#content .content_like .more_courseBox{
+	width: 100%;
+	height: 600px;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+#content .content_like .more_courseBox li{
+	width: 191px;
+	height: 268px;
+	background: #fff;
+	margin-bottom: 32px;
+	transition: all 1s;
+}
+#content .content_like .more_courseBox li .more_imgBox{
+	display: block;
+	width: 100%;
+	height: 181px;
+	position: relative;
+	overflow: hidden;
+}
+#content .content_like .more_courseBox li .shadow{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.8);
+	opacity: 0;
+	transition: all 1s;
+}
+#content .content_like .more_courseBox li .more_switch{
+    width: 46px;
+	height: 46px;
+	box-sizing: border-box;
+	border: 2px solid #26c18f;
+	border-radius: 50%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	opacity: 0;
+	transition: all 1s;
+/* 	box-shadow: 0 0 20px 1000px rgba(0, 0, 0, 0.7); */
+}
+#content .content_like .more_courseBox li .more_switch::before{
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #26c18f;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid transparent;
+	position: absolute;
+	left: 14px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+#content .content_like .more_courseBox li .more_title{
+	width: 100%;
+	height: 87px;
+	box-sizing: border-box;
+	padding: 8px 0px 0 8px;
+	border-bottom: 2px solid #fff;
+	transition: all 1s;
+}
+#content .content_like .more_courseBox li .more_title h2{
+	font-size: 16px;
+	color: #000;
+	line-height: 32px;
+	transition: all 1s;
+
+}
+#content .content_like .more_courseBox li .more_title h3{
+	font-size: 14px;
+	color: #737373;
+	line-height: 30px;
+}
+#content .content_like .more_courseBox li:hover{
+	box-shadow: 0 5px 12px 3px rgba(185, 184, 185, 0.5);
+}
+#content .content_like .more_courseBox li:hover .more_title{
+	border-bottom: 2px solid #24d17a;
+} 
+#content .content_like .more_courseBox li:hover .more_title h2{
+	color: #5660d3;
+}
+#content .content_like .more_courseBox li:hover .shadow{
+	opacity: 1;
+}
+#content .content_like .more_courseBox li:hover .more_switch{
+	opacity: 1;
+}
+/* 猜你喜欢结束 */
+/* 我要评论开始 */
+#content .content_Comment{
+   width: 100%;
+   height: auto;
+   overflow: hidden;
+}
+#content .content_Comment textarea{
+	width: 100%;
+	height: 136px;
+	background: #fff;
+	border: none;
+	resize: none;
+	padding: 16px 0 0 14px;
+	box-sizing: border-box;
+}
+#content .content_Comment textarea:focus{
+	outline: none;
+}
+#content .content_Comment button{
+	width: 71px;
+	height: 26px;
+	font-size: 14px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 26px;
+	border-radius: 13px;
+	background: #5660d3;
+	float: right;
+	border: none;
+	margin-top: 20px;
+}
+/* 我要评论结束 */
+/* 热门评论开始 */
+#content .content_hot{
+   width: 100%;
+   height: auto;
+   overflow: hidden;
+}
+#content .content_hot .content_pinglun{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+#content .content_hot .content_pinglun li{
+	width: 100%;
+	height: 100px;
+	padding-bottom: 25px;
+}
+#content .content_hot .content_pinglun li img{
+	width: 63px;
+	height: 63px;
+	margin-right: 28px;
+	float: left;
+}
+#content .content_hot .content_pinglun li .content_plR{
+	width: calc(100% - 91px);
+	height: 100%;
+	float: right;
+}
+#content .content_hot .content_pinglun li .content_plR .content_plRt{
+	width: 100%;
+	padding-top: 15px;
+	display: flex;
+	justify-content: space-between;
+}
+#content .content_pinglun li .content_plR h1{
+	font-size: 18px;
+	color: #333333;
+	font-weight: bold;
+	line-height: 30px;
+}
+#content .content_pinglun li .content_plR .content_plRt div{
+	 display: flex;
+}
+#content .content_pinglun li .content_plR .content_plRt div img:first-of-type{
+	width: 12px;
+	height: 11px;
+	margin-right: 20px;
+
+}
+#content .content_pinglun li .content_plR .content_plRt div img:nth-of-type(2){
+	width: 15px;
+	height: 11px;
+	margin-right: 20px;
+}
+#content .content_pinglun li .content_plR .content_plRt div span{
+	font-size: 10px;
+	color: #535353;
+	margin-right: 20px;
+}
+#content .content_pinglun li .content_plR .content_plRt div span:nth-of-type(2){
+	margin-right: 0px;
+}
+#content .content_pinglun li .content_plR p{
+	font-size: 16px;
+	line-height: 22px;
+	color: #a0a0a0;
+	margin-top: 10px
+}
+/* 分页 */
+#content .content_hot .more_fenye{
+    height: 31px;
+	margin-left:187px;
+	display: flex;
+	margin-bottom: 92px;
+}
+#content .content_hot .more_fenye h2{
+	font-size: 14px;
+	color: #838383;
+	line-height: 31px;
+	margin-right: 18px;
+	cursor: pointer;
+}
+#content .content_hot .more_fenye span{
+	display: block;
+	width: 31px;
+	height: 31px;
+	background: #F8F8F8;
+	border-radius: 50%;
+	font-size: 20px;
+	text-align: center;
+	line-height: 31px;
+	color: #464646;
+	margin-right: 22px;
+	cursor: pointer;
+}
+#content .content_hot .more_fenye span.hot{
+	color: #fff;
+	background: #5660d3;
+}
+
+
+
+
+/* 热门评论结束*/
+
+
+#content .content_right{
+    width: 563px;
+    height: 600px;
+	float: right;
+}
+#content .content_right h1{
+	font-size: 24px;
+	color: #000;
+	margin-bottom: 26px;
+}
+#content .content_right .content_list{
+	width: 100%;
+	height: 150px;
+	margin-bottom: 35px;
+	background: #fff;
+}
+#content .content_right .content_list .more_imgBox{
+	width: 262px;
+	height: 100%;
+	float: left;
+}
+#content .content_right .content_list .more_title{
+	width: 284px;
+	height: 83px;
+	border-bottom: 1px dashed #999999;
+	box-sizing: border-box;
+	padding: 17px 0px 0 15px;
+	float: left;
+}
+#content .content_right .content_list .more_title h2{
+	font-size: 18px;
+	color: #6d75d8;
+	line-height: 28px;
+}
+#content .content_right .content_list .more_title h3{
+	width: 130px;
+	float: left;
+	line-height: 24px;
+	overflow: hidden;
+	font-size: 14px;
+	color: #737373;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#content .content_right .content_list .more_title h4{
+	font-size: 16px;
+	color: #7880dc;
+	float: right;
+	line-height: 22px;
+}
+#content .content_right .content_list .more_watch{
+	width: 284px;
+	height: 66px;
+	padding: 23px 0px 0 14px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	float: left;
+}
+#content .content_right .content_list .more_watch a{
+	display: block;
+    width: 81px;
+    height: 26px;
+    box-sizing: border-box;
+    border: 1px solid #6069d6;
+    border-radius: 13px;
+    font-size: 14px;
+    color: #737373;
+    text-align: center;
+    line-height: 26px;
+}
+#content .content_right .content_list .more_watch h4{
+	font-size: 14px;
+	color: #737373;
+	line-height: 26px;
+}
+#content .content_right h1.next{
+   margin-top: 12px;
+}

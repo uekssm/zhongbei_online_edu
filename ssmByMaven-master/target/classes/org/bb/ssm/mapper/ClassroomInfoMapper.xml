@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.bb.ssm.mapper.ClassroomInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.bb.ssm.model.Classroom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="computer_num" property="computer_num" jdbcType="INTEGER" />
+    <result column="station" property="station" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,name,num,computer_num,station
+
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from uek_acdemic_classroom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+
+  
+  <select id="findAll" resultMap="BaseResultMap">
+  	SELECT * FROM uek_acdemic_classroom limit 10
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from uek_acdemic_classroom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.bb.ssm.model.Classroom" >
+    insert into uek_acdemic_classroom (id, name, summary)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.bb.ssm.model.Classroom" >
+    insert into uek_acdemic_classroom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+     
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.bb.ssm.model.Classroom" >
+    update uek_acdemic_classroom
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.bb.ssm.model.Classroom" >
+    update uek_acdemic_classroom
+    set name = #{name,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

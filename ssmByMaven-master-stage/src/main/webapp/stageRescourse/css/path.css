@@ -1,0 +1,255 @@
+
+.navs{
+    width:100%;
+    height:320px;
+    background: url("../image/path/pathNav.png");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+.contain{
+    width:1200px;
+    height:100%;
+    margin:0 auto;
+}
+.navs .contain .navText{
+    width:646px;
+    height:85px;
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:0 auto;
+}
+.navs .contain .navText .navItem {
+    float: left;
+    min-width: 200px;
+    height:85px;
+    padding:27px 30px;
+    font-size: 24px;
+    color:#fff;
+    text-align: center;
+    box-sizing: border-box;
+}
+.navs .contain .navText .navItem.active {
+    background-color: #fff;
+    color:#000;
+}
+
+.main{
+    width:100%;
+    overflow: hidden;
+    margin-top:70px;
+    padding-bottom: 240px;
+}
+.main .contain .mainItem{
+    width:100%;
+    height: 407px;
+    margin-bottom: 30px;
+}
+.main .contain .mainItem .title{
+    width:100%;
+    height:40px;
+}
+.main .contain .mainItem .title .list1{
+    float: left;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background: #448aca;
+    margin-top:17px;
+    margin-right:6px;
+}
+.main .contain .mainItem .title .list2{
+    float: left;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background: #feb527;
+    margin-top:17px;
+}
+.main .contain .mainItem .title h3{
+    float: left;
+    line-height: 40px;
+    margin-left:5px;
+    font-size: 24px;
+}
+.main .contain .mainItem .mainBox{
+    width:100%;
+    height:373px;
+    background: #fff;
+    box-shadow: 0px 0px 26px 0 rgba(7, 17, 27, 0.06);
+    margin-top:10px;
+}
+.main .contain .mainItem .mainBox .video{
+    display: block;
+    width:136px;
+    height:100%;
+    float: left;
+    background: url("../image/path/video.png");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.main .contain .mainItem .mainBox .video .play {
+    width:47px;
+    height:47px;
+    position: absolute;
+    left:0;
+    right:0;
+    margin:0 auto;
+    top: 163px;
+}
+.main .contain .mainItem .mainBox .video .playText{
+    width: 100%;
+    height:18px;
+    text-align: center;
+    font-size: 18px;
+    color:#cdd2d8;
+    position: absolute;
+    top:225px;
+}
+.main .contain .mainItem .mainBox .courseBox{
+    width: 1064px;
+    height:100%;
+    padding: 20px 10px 16px 24px;
+    box-sizing: border-box;
+    float: left;
+    position: relative;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain {
+    margin-top: 23px;
+    display: flex;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList{
+    height: 288px;
+    margin-right: 27px;
+    font-size: 18px;
+    flex-grow: 1;
+    flex: 1;
+    position: relative;
+    background: #f8fafc;
+    transition:1s;
+    z-index:10;
+    /*overflow: hidden;*/
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList:hover{
+    background: #FFFFFF;
+    /*box-shadow: 0 0px 16px 0 rgba(7, 17, 27, 0.2);*/
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList:hover .etc{
+    display: none;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList:hover a{
+    box-shadow: 0 0px 16px 0 rgba(7, 17, 27, 0.2);
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList:hover ul{
+    /* min-height:288px; */
+    height:auto;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList a {
+    width: 100%;
+    display: block;
+    padding: 26px 20px;
+    box-sizing: border-box;
+    position: relative;
+    background: #f8fafc;
+    transition:1s;
+    min-height: 288px;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList a .num{
+    position: absolute;
+    top:22px;
+    right:23px;
+    font-size: 36px;
+    color:#e9e9e9;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList a h3{
+    font-size: 20px;
+    color:#19222c;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList a ul {
+    margin-top: 30px;
+    overflow: hidden;
+    height: 84px;
+    transition: 1s;
+    /*background: #f8fafc;*/
+    position: relative;
+    z-index: 999;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList a ul li{
+    font-size:18px;
+    color:#374652;
+    margin-bottom: 15px;
+}
+.main .contain .mainItem .mainBox .courseBox .courseMain .courseList a .etc{
+    font-size: 26px;
+    color:#848a8f;
+    margin-top:15px;
+    display: block;
+}
+.main .contain .mainItem .mainBox .courseBox .details {
+    float: right;
+    /*margin-top: 13px;*/
+    position: absolute;
+    bottom:11px;
+    right:32px;
+}
+.main .contain .mainItem .mainBox .courseBox .details span{
+    float: left;
+}
+.main .contain .mainItem .mainBox .courseBox .details .dot1{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #98bfe2;
+    margin-right: 3px;
+    float: left;
+    margin-top:5px;
+    margin-left: 10px;
+
+}
+.main .contain .mainItem .mainBox .courseBox .details .dot2{
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ffd788;
+    margin-right: 0px;
+    float: left;
+    margin-top:5px;
+
+}
+.main .contain .complete {
+    margin-top: 83px;
+    width:100%;
+}
+.main .contain .complete .title {
+    font-size: 18px;
+    color:#fcb72f;
+    font-weight: bold;
+}
+.main .contain .complete p{
+    color:#8c99b1;
+    font-size: 18px;
+}
+.main .contain .complete .skill{
+    margin-top:9px;
+}
+.main .contain .complete ul {
+    margin-top: 18px;
+    overflow: hidden;
+}
+.main .contain .complete ul li {
+    float: left;
+    width:240px;
+    color:#424664;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main .contain .complete ul li img{
+    width:18px;
+    height:16px;
+    float: left;
+    margin-right:7px;
+}

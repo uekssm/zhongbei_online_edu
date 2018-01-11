@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.bb.ssm.mapper.KnowledgeInfoMapper" >
+
+  <resultMap id="BaseResultMap" type="org.bb.ssm.model.Knowledge" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="is_difficult" property="is_difficult" jdbcType="INTEGER" />
+    <result column="is_important" property="is_important" jdbcType="INTEGER" />
+    <result column="video" property="video" jdbcType="VARCHAR" />
+    <result column="course_id" property="course_id" jdbcType="INTEGER" />
+    <result column="course_name" property="course_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id,num,name,is_difficult,is_important,video,course_id
+
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from uek_acdemic_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+
+  
+  <!-- <select id="findAll" resultMap="BaseResultMap">
+  	SELECT * FROM uek_acdemic_knowledge limit 10
+  </select> -->
+  
+  <select id="findAll" resultMap="BaseResultMap">
+  	SELECT a.*,b.name course_name FROM uek_acdemic_knowledge a left join uek_acdemic_course b on a.course_id=b.id limit 10
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from uek_acdemic_knowledge
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.bb.ssm.model.Knowledge" >
+    insert into uek_acdemic_knowledge (num , name ,is_difficult , is_important , video )
+    values ( #{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{is_difficult,jdbcType=INTEGER},#{is_important,jdbcType=INTEGER},#{video,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.bb.ssm.model.Knowledge" >
+    insert into uek_acdemic_knowledge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="about != null" >
+        about,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="about != null" >
+        #{about,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.bb.ssm.model.Knowledge" >
+    update uek_acdemic_knowledge
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="about != null" >
+        about = #{about,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.bb.ssm.model.Knowledge" >
+    update uek_acdemic_knowledge
+    set name = #{name,jdbcType=VARCHAR},
+      about = #{about,jdbcType=VARCHAR},
+      num = #{num,jdbcType=VARCHAR},
+      cover_image = #{cover_image,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,321 @@
+
+@import url('base.css');
+body{
+	background: #f8f8f8;
+}
+/* 详细信息开始 */
+#more_detail{
+	width: 100%;
+	height: 418px;
+	overflow: hidden;
+	background: #fff;
+	box-shadow: 0 10px 6px rgba(244, 244, 244, 0.7);
+	margin: 23px 0;
+}
+#more_detail .more_main{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+/* 面包屑 */
+#more_detail .more_bread{
+	width: 100%;
+	height: auto;
+	display: flex;
+	padding: 51px 0 28px 0;
+}
+#more_detail .more_bread img:first-of-type{
+	width: 17px;
+	height: 15px;
+	margin: 2px 7px 0 0;
+}
+#more_detail .more_bread img:nth-of-type(2){
+	width: 11px;
+	height: 10px;
+	margin: 4px 11px 0 0;
+}
+#more_detail .more_bread img:nth-of-type(3){
+	width: 18px;
+	height: 16px;
+	margin: 3px 7px 0 0;
+}
+#more_detail .more_bread a:first-of-type{
+	font-size:18px;
+	color: #8d8d8d;
+	margin-right: 10px;
+}
+#more_detail .more_bread a:nth-of-type(2){
+	font-size:18px;
+	color: #343434;
+	margin-top: 2px;
+}
+/* 学院信息 */
+#more_detail .more_xinxi{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+#more_detail .more_xinxi li{
+	width: 100%;
+	height: 53px;
+	border-bottom: 1px solid #e5e5e5;
+	display: flex;
+}
+#more_detail .more_xinxi li h2{
+	font-size: 18px;
+	color: #000;
+	margin:0 30px 0 3px;
+    line-height: 53px;
+}
+#more_detail .more_xinxi li h3{
+	font-size: 16px;
+	color: #737373;
+    line-height: 53px;
+}
+#more_detail .more_xinxi li h4{
+	padding: 0 21px;
+    font-size: 16px;
+	color: #7e7e7e;
+	height: 28px;
+	background: #fff;
+	border-radius: 14px;
+	text-align: center;
+	line-height: 28px;
+	margin: 11px 14px 0 0;	
+	cursor: pointer;
+}
+#more_detail .more_xinxi li h4:nth-child(2){
+	margin-left: -20px;
+}
+#more_detail .more_xinxi li h4.hot{
+	color: #d5d7f2;
+	background: #5660d3;
+	box-shadow: 0px 3px 6px 2px rgba(203, 206, 246, 0.5);
+}
+#more_detail .more_xinxi li:last-child{
+	border: none;
+	height: 104px;
+	padding-top: 25px;
+	box-sizing: border-box;
+}
+
+/* 详细信息结束 */
+/* 课程开始 */
+#more_course{
+	width: 1200px;
+	height: auto;
+	overflow: hidden;
+	margin: 54px auto 73px;
+}
+/* 最新最热分类 */
+#more_course .more_courseTop{
+	width: 100%;
+	height: 67px;
+	display: flex;
+	justify-content: space-between;
+}
+#more_course .more_courseLeft{
+   display: flex;
+   height: 100%;
+   line-height: 67px;
+   font-size: 16px;
+   color: #9d9d9d;
+}
+#more_course .more_courseLeft h1{
+	cursor: pointer;
+}
+#more_course .more_courseLeft h1:first-child{
+	margin-right: 28px;
+}
+#more_course .more_courseLeft h1.hot{
+	color: #8086db;
+}
+#more_course .more_courseRight{
+	display: flex;
+	height: 67px;
+}
+#more_course .more_courseRight h1{
+	font-size: 16px;
+	color: #909090;
+	line-height: 67px;
+	margin-right: 19px;
+	cursor: pointer;
+}
+#more_course .more_courseRight h1.hot{
+	color: #8086db;
+}
+#more_course .more_courseRight a{
+	display: block;
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	border: 1px solid #a1a1a1;
+	border-radius: 50%;
+	color: #a1a1a1;
+	font-size: 8px;
+	text-align: center;
+	line-height: 10px;
+	margin:28px 6px 0 0;
+}
+#more_course .more_courseRight a:last-child{
+	margin-right: 2px;
+}
+/* 视频课程列表 */
+#more_course .more_courseBox{
+	width: 100%;
+	height: 1768px;
+	overflow: hidden;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+#more_course .more_courseBox li{
+	width: 373px;
+	height: 525px;
+	background: #fff;
+	margin-bottom: 65px;
+	transition: all 1s;
+}
+#more_course .more_courseBox li .more_imgBox{
+	display: block;
+	width: 100%;
+	height: 354px;
+	background: yellowgreen;
+	position: relative;
+}
+#more_course .more_courseBox li .more_switch{
+	width: 46px;
+	height: 46px;
+	box-sizing: border-box;
+	border: 2px solid #26c18f;
+	border-radius: 50%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	opacity: 0;
+	transition: all 1s;
+}
+#more_course .more_courseBox li .more_switch::before{
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-left: 20px solid #26c18f;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid transparent;
+	position: absolute;
+	left: 14px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+}
+#more_course .more_courseBox li .more_title{
+	width: 100%;
+	height: 90px;
+	border-bottom: 1px dashed #999999;
+	box-sizing: border-box;
+	padding: 26px 24px 0 32px;
+}
+#more_course .more_courseBox li .more_title h2{
+	font-size: 18px;
+	color: #343434;
+	line-height: 27px;
+	transition: all 1s;
+}
+#more_course .more_courseBox li .more_title h3{
+	width: 130px;
+	float: left;
+	line-height: 24px;
+	overflow: hidden;
+	font-size: 14px;
+	color: #737373;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#more_course .more_courseBox li .more_title h4{
+	font-size: 16px;
+	color: #7880dc;
+	float: right;
+	line-height: 22px;
+}
+#more_course .more_courseBox li .more_watch{
+	width: 100%;
+	height: 81px;
+	border-bottom: 7px solid #fff;
+	padding: 20px 24px 0 35px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	transition: all 1s;
+}
+#more_course .more_courseBox li .more_watch a{
+    display: block;
+    width: 81px;
+    height: 26px;
+    box-sizing: border-box;
+    border: 1px solid #6069d6;
+    border-radius: 13px;
+    font-size: 14px;
+    color: #737373;
+    text-align: center;
+    line-height: 26px;
+    transition: all 1s;
+}
+#more_course .more_courseBox li .more_watch h4{
+	font-size: 14px;
+	color: #737373;
+	line-height: 26px;
+}
+#more_course .more_courseBox li:hover{
+	box-shadow: 0 5px 12px 3px rgba(185, 184, 185, 0.5);
+}
+#more_course .more_courseBox li:hover .more_title h2{
+	color: #6d75d8;
+
+}
+#more_course .more_courseBox li:hover .more_watch{
+	border-bottom: 7px solid #26c18f;
+
+}
+#more_course .more_courseBox li:hover .more_watch a{
+	background:#6069d6;
+	color: #fff; 
+}
+#more_course .more_courseBox li:hover .more_switch{
+	opacity: 1;	
+}
+/* 分页导航 */
+#more_course .more_fenye{
+	height: 31px;
+	margin-left:373px;
+	display: flex;
+}
+#more_course .more_fenye h2{
+	font-size: 14px;
+	color: #838383;
+	line-height: 31px;
+	margin-right: 18px;
+	cursor: pointer;
+}
+#more_course .more_fenye span{
+	display: block;
+	width: 31px;
+	height: 31px;
+	background: #F8F8F8;
+	border-radius: 50%;
+	font-size: 20px;
+	text-align: center;
+	line-height: 31px;
+	color: #464646;
+	margin-right: 22px;
+	cursor: pointer;
+}
+#more_course .more_fenye span.hot{
+	color: #fff;
+	background: #5660d3;
+}
+/* 课程结束 
