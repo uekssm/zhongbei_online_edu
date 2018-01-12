@@ -21,6 +21,38 @@
   	SELECT * FROM uek_acdemic_course limit 10
   </select>
   
+  <select id="findAllCourse" resultMap="BaseResultMap">
+  	SELECT a.* FROM uek_acdemic_course a 
+  		left join uek_acdemic_course_plan b on a.id=b.course_id
+  		left join uek_acdemic_college_subject c on b.subject_id=c.id
+  		where 1=1
+  		<if test="college_id>0">
+  			and c.college_id=#{college_id} 
+  		</if>
+  		<if test="subject_id>0">
+  			and c.id=#{subject_id} 
+  		</if>
+  		<if test="grade>0">
+  			and b.grade=#{grade} 
+  		</if>
+  		limit #{offset},#{limit}
+  </select>
+  
+  <select id="getCourseCount" resultType="java.lang.Integer" >
+  	SELECT count(1) FROM uek_acdemic_course a 
+  		left join uek_acdemic_course_plan b on a.id=b.course_id
+  		left join uek_acdemic_college_subject c on b.subject_id=c.id
+  		where 1=1
+  		<if test="college_id>0">
+  			and c.college_id=#{college_id} 
+  		</if>
+  		<if test="subject_id>0">
+  			and c.id=#{subject_id} 
+  		</if>
+  		<if test="grade>0">
+  			and b.grade=#{grade} 
+  		</if>
+  </select>
  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from uek_acdemic_course

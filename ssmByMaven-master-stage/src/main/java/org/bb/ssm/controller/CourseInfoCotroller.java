@@ -4,9 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bb.ssm.model.College;
 import org.bb.ssm.model.Course;
+import org.bb.ssm.model.Subject;
+import org.bb.ssm.service.CollegeInfoService;
 import org.bb.ssm.service.CourseInfoService;
 import org.bb.ssm.service.KnowledgeInfoService;
+import org.bb.ssm.service.SubjectInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +31,12 @@ public class CourseInfoCotroller {
 	private CourseInfoService courseInfoService;
 	
 	@Autowired
+	private CollegeInfoService collegeInfoService;
+	
+	@Autowired
+	private SubjectInfoService subjectInfoService;
+	
+	@Autowired
 	private KnowledgeInfoService knowledgeInfoService;
 	
 	/**
@@ -38,8 +48,40 @@ public class CourseInfoCotroller {
 	public String index(Map<String, Object> map){
 		//List<course> courseList = courseInfoService.findAll();
 		//map.put("ALLcourse", courseList);
+		//读取学院信息
+		List<College> collegenames =collegeInfoService.findAll();
+		map.put("collegenames", collegenames);
+		//读取专业信息----学科表中num长度大于等于6的
+		
+		//读取课程信息
 		return "stage/courseList";
 	}
+	
+	/**
+	 * 异步获取专业信息
+	 * @param collegeId=0
+	 * @return
+	 */
+	@RequestMapping(value="/getSubject",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getSubject(int collegeId){
+		System.out.println(collegeId);
+		List<Subject> subjects = subjectInfoService.findAllMajor(collegeId);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsondata = mapper.writeValueAsString(subjects);
+
+			//System.out.println(jsondata);
+			
+			return jsondata;
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	/**
 	 * 根据id找到视频信息
@@ -67,19 +109,19 @@ public class CourseInfoCotroller {
 	
 	/**
 	 * 得到所有课程信息
-	 * @param map
+	 * @param college_id,subject_id,grade
 	 * @return
 	 */
-	@RequestMapping(value="/getAllCourse",method=RequestMethod.POST)
+	@RequestMapping(value="/getAllCourse",method={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public String getAllCourse(Object pageinfo,Map<String, Object> map){
-		System.out.println(pageinfo);
-		List<Course> courseList = courseInfoService.findAll();
+	public String getAllCourse(int limit,int pageindex,int college_id,int subject_id,int grade){
+		int offset=limit*pageindex;
+		List<Course> courseList = courseInfoService.findAllCourse(limit,offset,college_id,subject_id,grade);
 		
 		HashMap<String,Object > tcourse = new HashMap<String,Object >();
 		
 		tcourse.put("rows", courseList);
-		tcourse.put("results", courseList.size());
+		tcourse.put("results", courseInfoService.getCourseCount(college_id,subject_id,grade));
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {

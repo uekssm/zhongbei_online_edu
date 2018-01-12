@@ -20,7 +20,14 @@
 
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT * FROM uek_acdemic_college_subject limit 10
+  	SELECT * FROM uek_acdemic_college_subject 
+  </select>
+  
+  <select id="findAllMajor" resultMap="BaseResultMap">
+  	SELECT * FROM uek_acdemic_college_subject where LENGTH(num)>4
+  	<if test="collegeId != null and collegeId>0" >
+  		and college_id=#{collegeId}
+  	</if>
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

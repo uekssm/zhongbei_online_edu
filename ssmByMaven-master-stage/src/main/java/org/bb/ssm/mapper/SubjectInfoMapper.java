@@ -2,6 +2,7 @@ package org.bb.ssm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.bb.ssm.model.Subject;
 
 public interface SubjectInfoMapper {
@@ -21,4 +22,6 @@ public interface SubjectInfoMapper {
     int updateByPrimaryKey(Subject record);
 
 	Subject selectByPwd(Subject record);
+
+	List<Subject> findAllMajor(@Param(value="collegeId") int collegeId);
 }

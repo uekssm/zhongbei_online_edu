@@ -32,4 +32,8 @@ public interface CourseInfoService {
 	int updateByPrimaryKey(Course record);
 
 	Object selectByCourseId(Integer id);
+
+	List<Course> findAllCourse(int limit,int offset,int college_id, int subject_id, int grade);
+
+	int getCourseCount(int college_id, int subject_id, int grade);
 }

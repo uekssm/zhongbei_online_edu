@@ -84,4 +84,18 @@ public class CourseInfoServiceImpl implements CourseInfoService {
 		return mapper.selectByCourseId(id);
 	}
 
+	@Override
+	public List<Course> findAllCourse(int limit,int offset,int college_id, int subject_id,
+			int grade) {
+		List<Course> list = mapper.findAllCourse(limit,offset,college_id,subject_id,grade);
+		
+		return list;
+	}
+
+	@Override
+	public int getCourseCount(int college_id, int subject_id, int grade) {
+		
+		return mapper.getCourseCount(college_id,subject_id,grade);
+	}
+
 }

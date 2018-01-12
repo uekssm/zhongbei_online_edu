@@ -79,4 +79,10 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
 		return mapper.selectByPwd(record);
 	}
 
+	@Override
+	public List<Subject> findAllMajor(int collegeId) {
+		List<Subject> list = mapper.findAllMajor(collegeId);
+		return list;
+	}
+
 }
