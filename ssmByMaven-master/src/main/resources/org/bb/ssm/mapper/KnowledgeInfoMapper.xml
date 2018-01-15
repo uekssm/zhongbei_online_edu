@@ -39,8 +39,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.bb.ssm.model.Knowledge" >
-    insert into uek_acdemic_knowledge (num , name ,is_difficult , is_important , video )
-    values ( #{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{is_difficult,jdbcType=INTEGER},#{is_important,jdbcType=INTEGER},#{video,jdbcType=VARCHAR})
+    insert into uek_acdemic_knowledge (num , name ,is_difficult , is_important , video,course_id )
+    values ( #{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{is_difficult,jdbcType=INTEGER},#{is_important,jdbcType=INTEGER},#{video,jdbcType=VARCHAR},134)
   </insert>
   <insert id="insertSelective" parameterType="org.bb.ssm.model.Knowledge" >
     insert into uek_acdemic_knowledge

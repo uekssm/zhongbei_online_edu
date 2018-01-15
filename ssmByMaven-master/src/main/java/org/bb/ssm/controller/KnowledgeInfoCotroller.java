@@ -102,8 +102,10 @@ public class KnowledgeInfoCotroller {
 			MultipartFile myfile = entity.getValue();
 			
 			String uploadPath = request.getSession().getServletContext().getRealPath("/resourse/upload");
+			//String uploadPath = request.getSession().getServletContext().getRealPath("http://localhost:8080/ssmStage/resourse/upload");
 			fileName = myfile.getOriginalFilename();
-			targetFile = uploadPath + "/" + fileName;
+			targetFile = uploadPath + "/" + "upload1.mp4";
+			//targetFile = "http://localhost:8080/ssmStage/resourse/upload" + "/" + "upload1.mp4";
 			
 			
 			byte[] bs = myfile.getBytes();
@@ -113,7 +115,9 @@ public class KnowledgeInfoCotroller {
 			fos.close();
 		}
 		
-		return "{\"url\" : \"" + fileName + "\"}";
+		//return "{\"url\" : \"" + fileName + "\"}";
+		return "{\"url\" : \"/resourse/upload/upload1.mp4\"}";
+
 	}
 
 	/**
