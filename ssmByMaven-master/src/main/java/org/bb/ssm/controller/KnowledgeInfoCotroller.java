@@ -3,6 +3,7 @@ package org.bb.ssm.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,6 +130,12 @@ public class KnowledgeInfoCotroller {
 	@RequestMapping(value = "/addKnowledge", method = RequestMethod.GET)
 	public String addKnowledge(Knowledge knowledgeinfo) {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx"+knowledgeinfo);
+		try {
+			knowledgeinfo.setName(new String(knowledgeinfo.getName().getBytes("iso-8859-1"),"utf-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		int result = knowledgeInfoService.insert(knowledgeinfo);
 		
 		System.out.println("添加知识点的操作结果为：" + result);
