@@ -30,4 +30,6 @@ public interface BoutiqueInfoService {
 	int updateByPrimaryKeySelective(Boutique record);
 
 	int updateByPrimaryKey(Boutique record);
+
+	void updateStatusById(int id, int status);
 }

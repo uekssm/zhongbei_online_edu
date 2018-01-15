@@ -21,4 +21,6 @@ public interface CourseInfoMapper {
     int updateByPrimaryKey(Course record);
 
 	Course selectByPwd(Course record);
+
+	int getIdByNum(String num);
 }

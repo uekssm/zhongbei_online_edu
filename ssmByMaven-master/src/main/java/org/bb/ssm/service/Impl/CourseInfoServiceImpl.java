@@ -79,4 +79,9 @@ public class CourseInfoServiceImpl implements CourseInfoService {
 		return mapper.selectByPwd(record);
 	}
 
+	@Override
+	public int getIdByNum(String num) {
+		return mapper.getIdByNum(num);
+	}
+
 }

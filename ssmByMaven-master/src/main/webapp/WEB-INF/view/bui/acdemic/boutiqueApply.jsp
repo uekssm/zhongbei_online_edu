@@ -36,47 +36,18 @@
 	<div class="container">
 		<div class="col-xs-2"></div>
 		<div class="col-xs-8">
-			<form id="J_Form" action="dospeech" method="post" enctype="multipart/form-data">
+			<form id="J_Form" action="${pageContext.request.contextPath }/boutique/addBoutique" method="post" enctype="multipart/form-data">
 				<table class="table">
+					
 					<tr>
-						<td>学院</td>
+						<td>请输入课程编号</td>
 						<td>
-							<select data-rules="{required:true}">
-								<option value="">请选择学院</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>系部</td>
-						<td>
-							<select data-rules="{required:true}">
-								<option value="">请选择系部</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>专业</td>
-						<td>
-							<select data-rules="{required:true}">
-								<option value="">请选择专业</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>课程</td>
-						<td>
-							<select name="course_id" data-rules="{required:true}">
-								<option value="">请选择课程</option>
-							</select>
+							<input name="num" data-rules="{required:true}">
+								
 						</td>
 					</tr>
 					
-					<tr>
-						<td>上传文件</td>
-						<td>
-							<input type="file" name="photo">
-						</td>
-					</tr>
+					
 					<tr>
 						<td colspan="2">
 							<button class="btn btn-primary" type="submit">确认录入</button>
@@ -90,23 +61,16 @@
 
 	<script type="text/javascript">
 		$(function(){
-			//当班级发生变化时获取对应的学员
-			$('.class').change(function(){
-				$('select[name=speaker_id]').html('<option>请选择学员</option>');
-				var classid=$(this).val();
-				$.getJSON('getstudents?classid='+classid,function(msg){
-						$(msg).each(function(k,v){
-							$('select[name=speaker_id]')[0][k+1]=new Option(v.name,v.user_id);
-						})
-					})
-				/*$.ajax({
-					url:'getstudents?classid='+classid,
-					success:function(msg){
-						alert(msg)
+			$('.selcollege').change(function(){
+				var collegeid=this.value;
+				$.ajax({
+					url:"${pageContext.request.contextPath }/subject/getSubjectByCollegeId?collegeid="+collegeid,
+					success:function(res){
+						console.log(res);
 					}
-				})*/
-			})
-		})
+				});
+			});
+		});
 	</script>
 	<script type="text/javascript">
         BUI.use('bui/calendar',function(Calendar){

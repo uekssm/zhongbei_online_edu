@@ -2,7 +2,7 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,74 +11,84 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row">&nbsp;</div>
-		<div class="row">&nbsp;</div>
-		<div class="row">
-			<div class="col-xs-6">
-				<img src="../images/logo1-0.png" alt="">
+		<center>
+			<div class="row">&nbsp;</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<img src="../images/logo1-0.png" alt="">
+				</div>
 			</div>
-		</div>
-		<hr><br><br><br>
-		<div class="row">
-			<div class="col-xs-3"></div>
-			<form:form action="${pageContext.request.contextPath }/login/dologin" method="post"  name="myform" id="loginform">
-			<div class="col-xs-12 col-sm-6">
-				<div class="col-xs-12">
-					<div class="col-xs-1"></div>
-					<div class="col-xs-11">
-						<p class="" style="font-size:22px;color:#777777">欢迎您，请先登录!</p>
-					</div>
-					
-				</div>
-				<div class="col-xs-12">&nbsp;</div>
-				<div class="col-xs-12">
-					<div class="col-xs-1"></div>
-					<div class="col-xs-3 col-sm-3">
-						<p class="" style="font-size:18px;color:#777777">用&nbsp;户&nbsp;名:</p>
-					</div>
-					<div class="col-xs-7 col-sm-7">
-						<input type="text" class="form-control" name="username" size="30" placeholder="请输入姓名或手机号">
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="col-xs-4 col-sm-4"></div>
-					<div class="col-xs-7 col-sm-7" id="usernameinfo" style="color:red">&nbsp;</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="col-xs-1"></div>
-					<div class="col-xs-3 col-sm-3">
-						<p class="" style="font-size:18px;color:#777777">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</p>
-					</div>
-					<div class="col-xs-7 col-sm-7">
-						<input type="password" class="form-control" name="password" size="30" placeholder="请输入密码">
-					</div>
-				</div>
-				<div class="col-xs-12">
-					<div class="col-xs-4 col-sm-4"></div>
-					<div class="col-xs-7 col-sm-7" id="passwordinfo" style="color:red">&nbsp;</div>
-				</div>
-				
-				<div class="col-xs-12">&nbsp;</div>
-				<div class="col-xs-12">
-					<div class="col-sm-1"></div>
-					<div class="col-xs-12 col-sm-9 text-center">
-						<div class="col-xs-2"></div>
-						<div class="col-xs-8">
-							<input title="请输入用户名、密码" class="btn btn-primary btn-md" value="&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;" type="submit" style="width:100%" >
+			<hr><br><br><br>
+			<div class="row">
+				<div class="col-xs-3"></div>
+				<form:form action="${pageContext.request.contextPath }/login/dologin" method="post"  name="myform" id="loginform">
+				<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-12">
+						<div class="col-xs-1"></div>
+						<div class="col-xs-11">
+							<p class="" style="font-size:22px;color:#777777">欢迎您，请先登录!</p>
 						</div>
 						
-						<!-- <div class="col-xs-6">
-							<input class="btn btn-md" value="&nbsp;&nbsp;注&nbsp;&nbsp;册&nbsp;&nbsp;" type="button" style="width:100%">
+					</div>
+					<div class="col-xs-12">&nbsp;</div>
+					<div class="col-xs-12">
+						<div class="col-xs-1"></div>
+						<!-- <div class="col-xs-3 col-sm-3">
+							<p class="" style="font-size:18px;color:#777777">用&nbsp;户&nbsp;名:</p>
+						</div>
+						<div class="col-xs-7 col-sm-7">
+							<input type="text" class="form-control" name="username" size="30" placeholder="请输入姓名或手机号">
 						</div> -->
-						
-						
+						<div class="col-xs-10">
+							<p class="" style="font-size:18px;color:#777777;display:inline-block">用&nbsp;户&nbsp;名:</p>
+							<input type="text" class="form-control" name="username" size="30" placeholder="请输入姓名或手机号">
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="col-xs-4 col-sm-4"></div>
+						<div class="col-xs-7 col-sm-7" id="usernameinfo" style="color:red">&nbsp;</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="col-xs-1"></div>
+						<div class="col-xs-10">
+							<p class="" style="font-size:18px;color:#777777;display:inline-block">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</p>
+							<input type="password" class="form-control" name="password" size="30" placeholder="请输入密码">
+						</div>
+						<!-- <div class="col-xs-3 col-sm-3">
+							<p class="" style="font-size:18px;color:#777777">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</p>
+						</div>
+						<div class="col-xs-7 col-sm-7">
+							<input type="password" class="form-control" name="password" size="30" placeholder="请输入密码">
+						</div> -->
+					</div>
+					<div class="col-xs-12">
+						<div class="col-xs-4 col-sm-4"></div>
+						<div class="col-xs-7 col-sm-7" id="passwordinfo" style="color:red">&nbsp;</div>
 					</div>
 					
+					<div class="col-xs-12">&nbsp;</div>
+					<div class="col-xs-12">
+						<div class="col-sm-1"></div>
+						<div class="col-xs-12 col-sm-9 text-center">
+							<div class="col-xs-2"></div>
+							<div class="col-xs-4">
+								<input title="请输入用户名、密码" class="btn form-control btn-primary " value="&nbsp;&nbsp;登&nbsp;&nbsp;录&nbsp;&nbsp;" type="submit">
+							</div>
+							
+							<!-- <div class="col-xs-6">
+								<input class="btn btn-md" value="&nbsp;&nbsp;注&nbsp;&nbsp;册&nbsp;&nbsp;" type="button" style="width:100%">
+							</div> -->
+							
+							
+						</div>
+						
+					</div>
 				</div>
+				</form:form>
+				<div class="col-xs-3"></div>
 			</div>
-			</form:form>
-			<div class="col-xs-3"></div>
-		</div>
+		</center>
 	</div>
 	<script type="text/javascript" src="../scripts/jquery-1.11.2.js"></script>
 	<!-- <script type="text/javascript">

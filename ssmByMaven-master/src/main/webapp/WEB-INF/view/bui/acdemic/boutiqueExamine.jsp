@@ -130,7 +130,17 @@ function grant_role(value){
   <script type="text/javascript">
     BUI.use('common/page');
   </script>
-
+	<!-- 审核驳回操作 -->
+	<script>
+		/* $('body').on('click','.coursepass',function(){
+			$.ajax({
+				url:"${pageContext.request.contextPath }/boutique/updateStatus/2",
+				success:function(){
+				
+				}
+			});
+		}); */
+	</script>
 <script type="text/javascript">
   BUI.use('common/search',function (Search) {
 
@@ -181,13 +191,13 @@ function grant_role(value){
 
       columns = [
           {title:'编号',dataIndex:'num',width:80},
-          {title:'课程名称',dataIndex:'course_id',width:100},
+          {title:'课程名称',dataIndex:'cname',width:200},
           {title:'申请时间',dataIndex:'addtime',width:200},
-          {title:'申请教师',dataIndex:'teacher_id',width:100},
+          {title:'申请教师',dataIndex:'tname',width:100},
           {title:'审核状态',dataIndex:'status',width:100,renderer:function(value,obj){
-          	if(value==0){
+          	if(value==1){
           		return "<span style='color:blue'>未审核</span>";
-          	}else if(value==1){
+          	}else if(value==2){
           		return "<span style='color:green'>审核通过</span>";
           	}else{
           		return "<span style='color:red'>未通过</span>";
@@ -198,11 +208,11 @@ function grant_role(value){
         	  if(obj.universityname=='admin'&&"<{$Think.session.university.universityname}>"!="admin"){
         		  return '';
               }else{
-              	  if(value==0){
-		          		editStr1 = '<span class="grid-command btn-edit" title="通过">通过</span>';
+              	  if(value==1){
+		          		editStr1 = '<span class="grid-command coursepass" title="通过">通过</span>';
 		          		editStr2 = '<span class="grid-command btn-edit" title="驳回">驳回</span>';
-		          		return editStr1 ;
-		          }else if(value==1){
+		          		return editStr1+editStr2 ;
+		          }else if(value==2){
 		          		return "";
 		          }else{
 		          		editStr1 = '<span class="grid-command btn-edit" title="通过">通过</span>';
@@ -216,10 +226,10 @@ function grant_role(value){
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那么路径提交数据，同时附加参数saveType
             addUrl : "{:U('Sysuniversity/add')}",
-            updateUrl : "{:U('Sysuniversity/update')}",
+            updateUrl : "${pageContext.request.contextPath }/boutique/updateStatus?status=2",
             bindRolesUrl : "{:U('Sysuniversity/bindRoles')}",
             grantUrl : "{:U('Sysuniversity/grant')}",
-            removeUrl : "{:U('Sysuniversity/delete')}"
+            removeUrl : "${pageContext.request.contextPath }/boutique/updateStatus?status=2"
           },
           method : 'POST',
         },
@@ -280,13 +290,23 @@ function grant_role(value){
         },'question');
       }
     }
+    
+    function passItem(bouid){
+    	store.save('update',{id : bouid});
+    }
 
     //监听事件，删除一条记录
     grid.on('cellclick',function(ev){
       var sender = $(ev.domTarget); //点击的Dom
       if(sender.hasClass('btn-del')){
         var record = ev.record;
+        console.log(record)
         delItems([record]);
+      }
+      if(sender.hasClass('coursepass')){
+        var record = ev.record;
+        bouid=record.id;
+        passItem(bouid);
       }
     });
   });

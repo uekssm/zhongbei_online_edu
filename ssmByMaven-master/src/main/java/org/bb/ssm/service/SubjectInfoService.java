@@ -30,4 +30,6 @@ public interface SubjectInfoService {
 	int updateByPrimaryKeySelective(Subject record);
 
 	int updateByPrimaryKey(Subject record);
+
+	List<Subject> getSubjectByCollegeId(int collegeid);
 }

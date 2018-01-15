@@ -2,6 +2,7 @@ package org.bb.ssm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.bb.ssm.model.Boutique;
 
 public interface BoutiqueInfoMapper {
@@ -21,4 +22,6 @@ public interface BoutiqueInfoMapper {
     int updateByPrimaryKey(Boutique record);
 
 	Boutique selectByPwd(Boutique record);
+
+	void updateStatusById(@Param(value="id") Integer id, @Param(value="status") Integer status);
 }

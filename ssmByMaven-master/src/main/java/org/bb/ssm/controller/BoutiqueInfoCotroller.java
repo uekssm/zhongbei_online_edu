@@ -6,7 +6,10 @@ import java.util.Map;
 
 import org.bb.ssm.model.Boutique;
 import org.bb.ssm.service.BoutiqueInfoService;
+import org.bb.ssm.service.CollegeInfoService;
+import org.bb.ssm.service.CourseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +27,10 @@ public class BoutiqueInfoCotroller {
 	
 	@Autowired
 	private BoutiqueInfoService boutiqueInfoService;
-	
+	@Autowired
+	private CollegeInfoService collegeInfoService;
+	@Autowired
+	private CourseInfoService courseInfoService;
 	/**
 	 * 我的课程列表页
 	 * @param map
@@ -54,7 +60,7 @@ public class BoutiqueInfoCotroller {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/getAllBoutique",method=RequestMethod.POST)
+	@RequestMapping(value="/getAllBoutique",method={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
 	public String getAllBoutique(Object pageinfo,Map<String, Object> map){
 		System.out.println(pageinfo);
@@ -87,20 +93,39 @@ public class BoutiqueInfoCotroller {
 	public String addBoutique(Map<String, Object> map){
 		//因为页面使用spring的form标签，其中属性modelAttribute需要存在bean 要不会报错
 		map.put("command", new Boutique());
+		
+		//获取学院信息
+		map.put("collegeinfo", collegeInfoService.findAllCollege()) ;
 		return "bui/acdemic/boutiqueApply";
 	}
 	
 	/**
-	 * 添加用户操作
+	 * 添加精品课程操作
 	 * @param Boutiqueinfo
 	 * @return
 	 */
 	@RequestMapping(value="/addBoutique",method=RequestMethod.POST)
-	public String save(Boutique Boutiqueinfo){
-		int result = boutiqueInfoService.insert(Boutiqueinfo);
-		System.out.println("添加用户的操作结果为："+result);
+	public String save(String num){
+		//接收课程编号获取课程id
+		int course_id=courseInfoService.getIdByNum(num);
+		//接收session中的讲师id
+		int teacher_id=11;
+		Boutique Boutiqueinfo = new Boutique();
+		Boutiqueinfo.setCourse_id(course_id);
+		
+		Boutiqueinfo.setTeacher_id(teacher_id);
+		
+		boutiqueInfoService.insert(Boutiqueinfo);
+		return "redirect:/boutique/courselist";
+	}
+	
+	@RequestMapping(value="/updateStatus",method={RequestMethod.POST,RequestMethod.GET})
+	public String updateStatus(int id,int status){
+		boutiqueInfoService.updateStatusById(id,status);
 		return "redirect:/boutique/getAllBoutique";
 	}
+	
+	
 	/**
 	 * 删除用户操作
 	 * @param id

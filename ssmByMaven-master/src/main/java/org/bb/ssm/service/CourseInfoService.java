@@ -30,4 +30,6 @@ public interface CourseInfoService {
 	int updateByPrimaryKeySelective(Course record);
 
 	int updateByPrimaryKey(Course record);
+
+	int getIdByNum(String num);
 }

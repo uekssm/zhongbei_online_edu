@@ -8,6 +8,8 @@
     <result column="course_id" property="course_id" jdbcType="INTEGER" />
     <result column="addtime" property="addtime" jdbcType="VARCHAR" />
     <result column="examine_time" property="examine_time" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
+    <result column="tname" property="tname" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -21,10 +23,17 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-
+  <update id="updateStatusById" parameterType="org.bb.ssm.model.Boutique" >
+    update uek_acdemic_boutique_course
+    set status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT * FROM uek_acdemic_boutique_course limit 10
+  	SELECT a.*,b.name cname,c.name tname FROM uek_acdemic_boutique_course a
+  		left join uek_acdemic_course b on a.course_id=b.id
+  		left join uek_acdemic_teacher c on a.teacher_id=c.id
+  	 	limit 10
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -32,8 +41,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.bb.ssm.model.Boutique" >
-    insert into uek_acdemic_boutique_course (id, name, summary)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR})
+    insert into uek_acdemic_boutique_course (teacher_id, course_id)
+    values (#{teacher_id,jdbcType=INTEGER}, #{course_id,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.bb.ssm.model.Boutique" >
     insert into uek_acdemic_boutique_course

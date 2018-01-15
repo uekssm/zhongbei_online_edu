@@ -21,4 +21,6 @@ public interface CollegeInfoMapper {
     int updateByPrimaryKey(College record);
 
 	College selectByPwd(College record);
+
+	List<College> findAllCollege();
 }

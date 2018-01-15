@@ -7,6 +7,8 @@ public class Boutique {
 	private int course_id;
 	private String addtime;
 	private String examine_time;
+	private String cname;
+	private String tname;
 	private int status;
 	
 	public Boutique() {
@@ -14,7 +16,8 @@ public class Boutique {
 	}
 
 	public Boutique(int id, String num, int teacher_id, int course_id,
-			String addtime, String examine_time, int status) {
+			String addtime, String examine_time, String cname, String tname,
+			int status) {
 		super();
 		this.id = id;
 		this.num = num;
@@ -22,6 +25,8 @@ public class Boutique {
 		this.course_id = course_id;
 		this.addtime = addtime;
 		this.examine_time = examine_time;
+		this.cname = cname;
+		this.tname = tname;
 		this.status = status;
 	}
 
@@ -73,6 +78,22 @@ public class Boutique {
 		this.examine_time = examine_time;
 	}
 
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public String getTname() {
+		return tname;
+	}
+
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -85,9 +106,8 @@ public class Boutique {
 	public String toString() {
 		return "Boutique [id=" + id + ", num=" + num + ", teacher_id="
 				+ teacher_id + ", course_id=" + course_id + ", addtime="
-				+ addtime + ", examine_time=" + examine_time + ", status="
-				+ status + "]";
+				+ addtime + ", examine_time=" + examine_time + ", cname="
+				+ cname + ", tname=" + tname + ", status=" + status + "]";
 	}
 
-	
 }

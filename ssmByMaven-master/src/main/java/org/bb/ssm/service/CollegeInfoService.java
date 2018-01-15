@@ -30,4 +30,6 @@ public interface CollegeInfoService {
 	int updateByPrimaryKeySelective(College record);
 
 	int updateByPrimaryKey(College record);
+
+	List<College> findAllCollege();
 }

@@ -79,4 +79,10 @@ public class BoutiqueInfoServiceImpl implements BoutiqueInfoService {
 		return mapper.selectByPwd(record);
 	}
 
+	@Override
+	public void updateStatusById(int id, int status) {
+		mapper.updateStatusById(id,status);
+		
+	}
+
 }

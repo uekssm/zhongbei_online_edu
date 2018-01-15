@@ -79,4 +79,10 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
 		return mapper.selectByPwd(record);
 	}
 
+	@Override
+	public List<Subject> getSubjectByCollegeId(int collegeid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -79,4 +79,10 @@ public class CollegeInfoServiceImpl implements CollegeInfoService {
 		return mapper.selectByPwd(record);
 	}
 
+	@Override
+	public List<College> findAllCollege() {
+		List<College> list = mapper.findAllCollege();
+		return list;
+	}
+
 }

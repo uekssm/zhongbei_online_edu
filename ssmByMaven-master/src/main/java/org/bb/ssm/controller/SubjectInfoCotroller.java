@@ -26,7 +26,7 @@ public class SubjectInfoCotroller {
 	private SubjectInfoService subjectInfoService;
 	
 	/**
-	 * 用户列表页
+	 * 专业列表页
 	 * @param map
 	 * @return
 	 */
@@ -38,7 +38,7 @@ public class SubjectInfoCotroller {
 	}
 	
 	/**
-	 * 得到所有用户信息
+	 * 得到所有专业信息
 	 * @param map
 	 * @return
 	 */
@@ -66,8 +66,30 @@ public class SubjectInfoCotroller {
 		}
 		return null;
 	}
+	
 	/**
-	 * 通过handler前往添加用户页面
+	 * 根据学院id获取专业信息
+	 * @return
+	 */
+	@RequestMapping(value="/getSubjectByCollegeId",method={RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public String getSubjectByCollegeId(int collegeid){
+		List<Subject> subjectList = subjectInfoService.getSubjectByCollegeId(collegeid);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsondata = mapper.writeValueAsString(subjectList);
+
+			return jsondata;
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 通过handler前往添加专业页面
 	 * @param map
 	 * @return
 	 */
@@ -79,29 +101,29 @@ public class SubjectInfoCotroller {
 	}
 	
 	/**
-	 * 添加用户操作
+	 * 添加专业操作
 	 * @param subjectinfo
 	 * @return
 	 */
 	@RequestMapping(value="/addsubject",method=RequestMethod.POST)
 	public String save(Subject subjectinfo){
 		int result = subjectInfoService.insert(subjectinfo);
-		System.out.println("添加用户的操作结果为："+result);
+		System.out.println("添加专业的操作结果为："+result);
 		return "redirect:/subject/getAllSubject";
 	}
 	/**
-	 * 删除用户操作
+	 * 删除专业操作
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.DELETE)
 	public String delete(@PathVariable(value="id") int id){
 		int result = subjectInfoService.deleteByPrimaryKey(id);
-		System.out.println("删除用户的操作结果为："+result+"传递进来的id为："+id);
+		System.out.println("删除专业的操作结果为："+result+"传递进来的id为："+id);
 		return "redirect:/subject/getAllSubject";
 	}
 	/**
-	 * 更新前先根据id找到用户信息，回显到页面上
+	 * 更新前先根据id找到专业信息，回显到页面上
 	 * @param id
 	 * @param map
 	 * @return

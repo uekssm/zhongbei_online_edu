@@ -180,10 +180,18 @@ function grant_role(value){
         }),
       columns = [
           {title:'编号',dataIndex:'num',width:80},
-          {title:'课程名称',dataIndex:'course_id',width:100},
+          {title:'课程名称',dataIndex:'cname',width:200},
           {title:'提交时间',dataIndex:'addtime',width:200},
           {title:'审核时间',dataIndex:'examine_time',width:200},
-          {title:'审核状态',dataIndex:'status',width:100}
+          {title:'审核状态',dataIndex:'status',width:100,width:100,renderer:function(value,obj){
+          	if(value==1){
+          		return "<span style='color:blue'>未审核</span>";
+          	}else if(value==2){
+          		return "<span style='color:green'>审核通过</span>";
+          	}else{
+          		return "<span style='color:red'>未通过</span>";
+          	}
+          }}
           
         ],
       store = Search.createStore('${pageContext.request.contextPath }/boutique/getAllBoutique',{
