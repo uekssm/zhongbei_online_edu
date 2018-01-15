@@ -99,7 +99,8 @@
 		<div class="content_left">
 		    <!-- 播放视频部分 -->
 			<div class="content_vdisplay">
-		     <video src="${pageContext.request.contextPath }${videoinfo.get(0).video }" controls></video>
+		     <%-- <video src="${pageContext.request.contextPath }${videoinfo.get(0).video }" controls></video> --%>
+		     <video src="http://localhost:8080/ssm/${videoinfo.get(0).video }" controls></video>
 				<div class="more_title">
 					<h2>${videoinfo.get(0).name }</h2>
 				    <h3>摄影艺术 高级突破 摄影艺术</h3>
@@ -301,7 +302,8 @@
 			<!-- 正在播放结束 -->
 			<h1 class="next">接下来播放</h1>
 			<c:forEach items="${requestScope.videoinfo }" var="videoval">
-				<div class="content_list" knowledge="${videoval.name }" videourl="${pageContext.request.contextPath }${videoval.video }">
+				<%-- <div class="content_list" knowledge="${videoval.name }" videourl="${pageContext.request.contextPath }${videoval.video }"> --%>
+				<div class="content_list" knowledge="${videoval.name }" videourl="http://localhost:8080/ssm/${videoval.video }">
 					<a href="javascript:void(0)" class="more_imgBox changevideo">
 					   <img src="../../stageRescourse/image/more/more04.png" alt="">
 					</a>

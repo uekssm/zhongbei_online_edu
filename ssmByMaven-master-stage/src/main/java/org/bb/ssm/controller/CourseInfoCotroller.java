@@ -91,7 +91,7 @@ public class CourseInfoCotroller {
 	 */
 	@RequestMapping(value="/video/{id}",method=RequestMethod.GET)
 	public String video(@PathVariable(value="id") Integer id,Map<String, Object> map){
-		map.put("videoinfo", knowledgeInfoService.selectByCourseId(id));
+		map.put("videoinfo", knowledgeInfoService.selectByCourseId(134));
 		return "stage/video";
 	}
 	
