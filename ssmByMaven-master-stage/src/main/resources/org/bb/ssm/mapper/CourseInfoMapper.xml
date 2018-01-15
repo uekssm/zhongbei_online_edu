@@ -35,7 +35,7 @@
   		<if test="grade>0">
   			and b.grade=#{grade} 
   		</if>
-  		order by id desc
+  		
   		limit #{offset},#{limit}
   </select>
   

@@ -35,7 +35,7 @@
   </select>
   
    <select id="selectByCourseId" resultMap="BaseResultMap">
-  	SELECT name,video FROM uek_acdemic_knowledge where course_id=#{id,jdbcType=INTEGER} 
+  	SELECT name,video FROM uek_acdemic_knowledge where course_id=#{id,jdbcType=INTEGER} order by id desc 
   </select>
   
   
