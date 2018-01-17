@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.bb.ssm.mapper.PositionInfoMapper;
+import org.bb.ssm.model.Employee;
 import org.bb.ssm.model.Position;
 import org.bb.ssm.service.PositionInfoService;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,6 @@ public class PositionInfoServiceImpl implements PositionInfoService {
 	 */
 	private PositionInfoMapper mapper;
 
-	/**
-	 * 查询PositionInfo表所有数据
-	 */
-	@Override
-	public List<Position> findAll() {
-		List<Position> list = mapper.findAll();
-		return list;
-	}
-	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return mapper.deleteByPrimaryKey(id);
@@ -83,6 +75,23 @@ public class PositionInfoServiceImpl implements PositionInfoService {
 	public List<Position> findPage() {
 		List<Position> list = mapper.findPage();
 		return list;
+	}
+
+	@Override
+	public List<Position> findAll(Integer limit, Integer pageIndex,
+			String searchname, Integer department_id) {
+		List<Position> list = mapper.findAll(limit,pageIndex,searchname,department_id);
+		return list;
+	}
+
+	@Override
+	public int totalCount(String searchname, Integer department_id) {
+		return (int) mapper.getPositionCount(searchname,department_id);
+	}
+
+	@Override
+	public int findRoleidById(Integer id) {
+		return mapper.findRoleidById(id);
 	}
 
 }

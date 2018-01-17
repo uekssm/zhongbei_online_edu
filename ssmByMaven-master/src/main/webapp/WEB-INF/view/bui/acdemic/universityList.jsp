@@ -158,7 +158,7 @@ function grant_role(value){
 
       columns = [
           {title:'学校编号',dataIndex:'num',width:80},
-          {title:'学校名称',dataIndex:'name',width:100},
+          {title:'学校名称',dataIndex:'name',width:200},
           {title:'学校介绍',dataIndex:'summary',width:600},
           {title:'操作',dataIndex:'roles',width:200,renderer : function(value,obj){
         	  //console.log(obj);

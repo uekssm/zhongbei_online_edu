@@ -65,7 +65,7 @@
         <input type="hidden" name="id">
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>名称</label>
+            <label class="control-label"><s>*</s>部门名称</label>
             <div class="controls">
               <input name="name" type="text" data-rules="{required:true}" class="input-normal control-text">
             </div>
@@ -73,7 +73,7 @@
           </div>
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label">url</label>
+            <label class="control-label">部门描述</label>
             <div class="controls">
 				<input name="target_href" type="text" class="input-normal control-text">
 
@@ -82,10 +82,10 @@
         </div>
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>pid</label>
+            <label class="control-label">上级部门</label>
            <div class="controls" id="s1">
-					    <input type="text" id="show" name="parent_id" data-rules="{required:true}" class="input-normal control-text">
-					    <input type="hidden" id="hide"  name="hide">
+					    <input type="text" id="show" name="show" class="input-normal control-text">
+					    <input type="hidden" id="hide"  name="parent_id">
 		     </div>
           </div>
         </div>
@@ -129,9 +129,9 @@
         triggerCls : 'btn-edit'
       }),
       columns = [
-          {title:'编号',dataIndex:'number',width:80},
-          {title:'名称',dataIndex:'name',width:100},
-          {title:'描述',dataIndex:'description',width:300},
+          {title:'部门编号',dataIndex:'number',width:80},
+          {title:'部门名字',dataIndex:'name',width:100},
+          {title:'部门描述',dataIndex:'description',width:300},
           {title:'上级部门',dataIndex:'pname',width:100},/* 
           {title:'状态',dataIndex:'status',width:100,visible:false}, */
           {title:'操作',dataIndex:'',width:200,renderer : function(value,obj){
@@ -147,9 +147,9 @@
       store = Search.createStore('${pageContext.request.contextPath }/department/getAllDepartment',{
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那么路径提交数据，同时附加参数saveType
-            addUrl : "{:U('SysMenu/add')}",
-            updateUrl : "{:U('SysMenu/update')}",
-            removeUrl : "{:U('SysMenu/delete')}"
+            addUrl : "${pageContext.request.contextPath }/department/addDepartment",
+            updateUrl : "${pageContext.request.contextPath }/department/UpdateDepartment",
+            removeUrl : "${pageContext.request.contextPath }/department/delete"
           },
           method : 'POST'
         },
@@ -219,7 +219,7 @@
             id : '0',
             text : '0'
           },
-          url : "{:U('SysMenu/trees')}",
+          url : "${pageContext.request.contextPath }/department/tree",
           autoLoad : true/**/
         }),
       //由于这个树，不显示根节点，所以可以不指定根节点

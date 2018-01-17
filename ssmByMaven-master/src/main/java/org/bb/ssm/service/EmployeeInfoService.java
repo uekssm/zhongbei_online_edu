@@ -15,7 +15,7 @@ import org.bb.ssm.model.Employee;
  */
 public interface EmployeeInfoService {
 
-	List<Employee> findAll();
+	List<Employee> findAll(Integer limit, Integer pageIndex, String searchname, Integer position_id);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -32,4 +32,6 @@ public interface EmployeeInfoService {
 	List<Employee> findOne();
 	
 	List<Employee> findPage();
+
+	int totalCount(String searchname, Integer position_id);
 }

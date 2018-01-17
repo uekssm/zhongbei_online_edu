@@ -15,7 +15,7 @@ import org.bb.ssm.model.User;
  */
 public interface UserInfoService {
 
-	List<User> findAll();
+	List<User> findAll(Integer limit, Integer pageIndex, String searchname, Integer status);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -30,4 +30,6 @@ public interface UserInfoService {
 	int updateByPrimaryKeySelective(User record);
 
 	int updateByPrimaryKey(User record);
+
+	int totalCount(String searchname, Integer status);
 }

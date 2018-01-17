@@ -34,14 +34,7 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 	 */
 	private EmployeeInfoMapper mapper;
 
-	/**
-	 * 查询EmployeeInfo表所有数据
-	 */
-	@Override
-	public List<Employee> findAll() {
-		List<Employee> list = mapper.findAll();
-		return list;
-	}
+	
 	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -83,6 +76,18 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService {
 	public List<Employee> findPage() {
 		List<Employee> list = mapper.findPage();
 		return list;
+	}
+
+	@Override
+	public List<Employee> findAll(Integer limit, Integer pageIndex,
+			String searchname, Integer position_id) {
+		List<Employee> list = mapper.findAll(limit,pageIndex,searchname,position_id);
+		return list;
+	}
+
+	@Override
+	public int totalCount(String searchname, Integer position_id) {
+		return (int) mapper.getEmployeeCount(searchname,position_id);
 	}
 
 }

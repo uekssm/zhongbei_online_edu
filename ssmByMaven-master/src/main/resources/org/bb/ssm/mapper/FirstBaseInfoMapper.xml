@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.bb.ssm.mapper.UserInfoMapper" >
-  <resultMap id="BaseResultMap" type="org.bb.ssm.model.User" >
+<mapper namespace="org.bb.ssm.mapper.FirstBaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.bb.ssm.model.FirstBase" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="user_id" property="user_id" jdbcType="INTEGER" />
+    <result column="role_id" property="role_id" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, status
+    id, user_id,role_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -17,7 +16,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <select id="selectByPwd" resultMap="BaseResultMap" parameterType="org.bb.ssm.model.User" >
+  <select id="selectByPwd" resultMap="BaseResultMap" parameterType="org.bb.ssm.model.FirstBase" >
     select 
     <include refid="Base_Column_List" />
     from uek_privilege_user
@@ -25,40 +24,30 @@
   </select>
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT * FROM uek_privilege_user 
-		where 1=1
-		<if test="searchname !=null">
-			and username like CONCAT('%', #{searchname}, '%')
-		</if>
-		<if test="status == 0 || status == 1">
-			and status=#{status}
-		</if>
-		limit #{pageIndex},#{limit} 
+  	SELECT * FROM uek_privilege_user limit 10
   </select>
-  
-  <select id="getUserCount" resultType="java.lang.Integer">  
-	  SELECT COUNT(*) FROM uek_privilege_user 
-	  	where 1=1 
-	  	<if test="searchname !=null">
-	  		and username like CONCAT('%', #{searchname}, '%') 
-	  	</if>
-	  	<if test="status == 0 || status == 1">
-			and status=#{status}
-		</if>
-
-	</select> 
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from uek_privilege_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.bb.ssm.model.User"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    insert into uek_privilege_user (id, username, status, 
-      password)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{password,jdbcType=VARCHAR})
+  <delete id="deleteByUserid" parameterType="java.lang.Integer">
+    delete from uek_privilege_user_role
+    where user_id = #{user_id}
+  </delete>
+  <delete id="deleteByRoleid" parameterType="java.lang.Integer">
+    delete from uek_privilege_role_menu
+    where role_id = #{id}
+  </delete>
+  <insert id="insert" parameterType="org.bb.ssm.model.FirstBase"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into uek_privilege_user_role (user_id, role_id)
+    values (#{user_id,jdbcType=INTEGER}, #{role_id,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="org.bb.ssm.model.User" >
+  <insert id="bindmenu" parameterType="org.bb.ssm.model.FirstBase"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into uek_privilege_role_menu (menu_id, role_id)
+    values (#{menu_id,jdbcType=INTEGER}, #{role_id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.bb.ssm.model.FirstBase" >
     insert into uek_privilege_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -89,7 +78,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.bb.ssm.model.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="org.bb.ssm.model.FirstBase" >
     update uek_privilege_user
     <set >
       <if test="username != null" >
@@ -104,7 +93,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.bb.ssm.model.User" >
+  <update id="updateByPrimaryKey" parameterType="org.bb.ssm.model.FirstBase" >
     update uek_privilege_user
     set username = #{username,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

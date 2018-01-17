@@ -108,9 +108,10 @@ function grant_role(value){
     <div id="contentForBindRole" class="hide">
       <form id="J_Form_Bind_Role" class="form-horizontal">
         <input type="hidden" name="id">
-        <foreach name="roles" item="role">
-			<input class="roleclass" type="checkbox" name="roles[]" value="{$role.id}" checked="true" />  {$role.name}<br>
-		</foreach>
+        <c:forEach items="${requestScope.allrole }" var="roleInfo">
+        	<input class="roleclass" type="checkbox" name="roles[]" value="${roleInfo.id}" checked="true" />  ${roleInfo.name}<br>
+        </c:forEach>
+      
       </form>
     </div>
 
@@ -152,22 +153,19 @@ function grant_role(value){
                             { text:'点击绑定',
                               elCls : 'button button-primary',
                               handler : function(){
-
-                            	  //console.log(this.__attrVals.editValue.id);
-                            	  //alert($("input:checked").size());
-
+								  var winthis=this;
                             	  var user_id = this.__attrVals.editValue.id;
 								                
-                                var role_ids = "";
+                                  var role_ids = "";
 
                             	  $("input:checked").each(function(){
                             		  role_ids += "," + $(this).val()  ;
                             	  });
-
+								  role_ids=role_ids.substring(1);
                             	  $.post("bind_Roles", { user_id: user_id, role_ids: role_ids },
                             			 function(data){
                             			     alert("绑定成功! ");
-                            			     //this.hide();
+                            			     winthis.hide();
                             	     }
                                 );
 

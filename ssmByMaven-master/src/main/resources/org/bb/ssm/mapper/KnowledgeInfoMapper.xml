@@ -24,6 +24,33 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+	<!-- 取得记录的总数 -->  
+	<select id="getKnowledgeCount" resultType="java.lang.Integer">  
+	  SELECT COUNT(*) FROM uek_acdemic_knowledge 
+	  	where 1=1
+	  	<if test="searchname != null">
+	  		and name like CONCAT('%', #{searchname}, '%')
+	  	</if>
+	  	<if test="course_id !=null and course_id>0">
+	  		and course_id=#{course_id} 
+	  	</if>
+	  	 
+	</select>  
+  
+  <select id="findAllByPage" resultMap="BaseResultMap">
+  	SELECT a.*,b.name course_name FROM uek_acdemic_knowledge a left join uek_acdemic_course b on a.course_id=b.id
+  			where 1=1
+	  	<if test="searchname != null">
+	  		and a.name like CONCAT('%', #{searchname}, '%')
+	  	</if>
+	  	<if test="course_id !=null and course_id>0">
+	  		and a.course_id=#{course_id} 
+	  	</if>
+  	 limit #{pageIndex},#{limit}
+  		
+  </select>
+	
+	
 
   
   <!-- <select id="findAll" resultMap="BaseResultMap">
@@ -34,10 +61,19 @@
   	SELECT a.*,b.name course_name FROM uek_acdemic_knowledge a left join uek_acdemic_course b on a.course_id=b.id limit 10
   </select>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from uek_acdemic_knowledge
     where id = #{id,jdbcType=INTEGER}
+  </delete> -->
+  <!-- ( #{ids}) -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from uek_acdemic_knowledge
+    where id in 
+    <foreach item="idItem" collection="ids" open="(" separator="," close=")">  
+        #{idItem}  
+    </foreach> 
   </delete>
+  
   <insert id="insert" parameterType="org.bb.ssm.model.Knowledge" >
     insert into uek_acdemic_knowledge (num , name ,is_difficult , is_important , video,course_id )
     values ( #{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{is_difficult,jdbcType=INTEGER},#{is_important,jdbcType=INTEGER},#{video,jdbcType=VARCHAR},134)

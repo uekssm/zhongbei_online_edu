@@ -34,7 +34,7 @@ public class KnowledgeInfoCotroller {
 	private KnowledgeInfoService knowledgeInfoService;
 
 	/**
-	 * 用户列表页
+	 * 知识点列表页
 	 * 
 	 * @param map
 	 * @return
@@ -61,21 +61,21 @@ public class KnowledgeInfoCotroller {
 	
 
 	/**
-	 * 得到所有用户信息
+	 * 得到所有知识点信息
 	 * 
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value = "/getAllKnowledge", method = RequestMethod.GET)
+	@RequestMapping(value = "/getAllKnowledge", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public String getAllKnowledge(Object pageinfo, Map<String, Object> map) {
-		System.out.println(pageinfo);
-		List<Knowledge> knowledgeList = knowledgeInfoService.findAll();
+	public String getAllKnowledge(@RequestParam(value="limit",required=false) Integer limit,@RequestParam(value="pageIndex",required=false) Integer pageIndex,@RequestParam(value="searchname",required=false) String searchname,@RequestParam(value="course_id",required=false) Integer course_id) {
+		pageIndex=pageIndex*limit;
+		List<Knowledge> knowledgeList = knowledgeInfoService.findAllByPage(limit, pageIndex, searchname, course_id);
 
 		HashMap<String, Object> tknowledge = new HashMap<String, Object>();
 
 		tknowledge.put("rows", knowledgeList);
-		tknowledge.put("results", knowledgeList.size());
+		tknowledge.put("results", knowledgeInfoService.totalCount(searchname,course_id));
 
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -122,7 +122,7 @@ public class KnowledgeInfoCotroller {
 	}
 
 	/**
-	 * 添加用户操作
+	 * 添加知识点操作
 	 * 
 	 * @param knowledgeinfo
 	 * @return
@@ -140,24 +140,29 @@ public class KnowledgeInfoCotroller {
 		
 		System.out.println("添加知识点的操作结果为：" + result);
 		
-		return "redirect:/knowledge/getAllKnowledge";
+		return "redirect:/knowledge/getAllKnowledge?limit=10&pageIndex=0&searchname=null&course_id=0";
 	}
 
 	/**
-	 * 删除用户操作
+	 * 删除知识点操作
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value="/delete",method={RequestMethod.POST,RequestMethod.GET})
+	public String delete(@RequestParam(value="ids[]") String[] ids){
+		knowledgeInfoService.deleteByPrimaryKey(ids);
+		return "redirect:/knowledge/getAllKnowledge?limit=10&pageIndex=0&searchname=null&course_id=0";
+	}
+	/*@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable(value = "id") int id) {
 		int result = knowledgeInfoService.deleteByPrimaryKey(id);
-		System.out.println("删除用户的操作结果为：" + result + "传递进来的id为：" + id);
-		return "redirect:/knowledge/getAllKnowledge";
-	}
+		System.out.println("删除知识点的操作结果为：" + result + "传递进来的id为：" + id);
+		return "redirect:/knowledge/getAllKnowledge?limit=10&pageIndex=0&searchname=null&course_id=0";
+	}*/
 
 	/**
-	 * 更新前先根据id找到用户信息，回显到页面上
+	 * 更新前先根据id找到知识点信息，回显到页面上
 	 * 
 	 * @param id
 	 * @param map
@@ -186,6 +191,6 @@ public class KnowledgeInfoCotroller {
 	@RequestMapping(value = "/addknowledge", method = RequestMethod.PUT)
 	public String update(Knowledge knowledgeinfo) {
 		knowledgeInfoService.updateByPrimaryKey(knowledgeinfo);
-		return "redirect:/knowledge/getAllKnowledge";
+		return "redirect:/knowledge/getAllKnowledge?limit=10&pageIndex=0&searchname=null&course_id=0";
 	}
 }

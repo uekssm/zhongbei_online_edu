@@ -104,7 +104,6 @@ public class UniversityInfoCotroller {
 	 */
 	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	public String delete(@RequestParam(value="ids[]") String[] ids){
-		
 		universityInfoService.deleteByPrimaryKey(ids);
 		return "redirect:/university/getAllUniversity?limit=10&pageIndex=0&searchname=''";
 	}

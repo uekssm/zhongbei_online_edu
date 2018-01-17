@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bb.ssm.model.FirstBase;
+import org.bb.ssm.model.Role;
 import org.bb.ssm.model.User;
+import org.bb.ssm.service.FirstBaseInfoService;
+import org.bb.ssm.service.RoleInfoService;
 import org.bb.ssm.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,12 @@ public class UserInfoCotroller {
 	@Autowired
 	private UserInfoService userInfoService;
 	
+	@Autowired
+	private RoleInfoService roleInfoService;
+	
+	@Autowired
+	private FirstBaseInfoService firstBaseInfoService;
+	
 	/**
 	 * 用户列表页
 	 * @param map
@@ -32,8 +42,9 @@ public class UserInfoCotroller {
 	 */
 	@RequestMapping(value="/index")
 	public String index(Map<String, Object> map){
-		//List<User> userList = userInfoService.findAll();
-		//map.put("ALLUSER", userList);
+		List<Role> roleList = roleInfoService.findAll(null, null, null);
+		map.put("allrole", roleList);
+		System.out.println(roleList);
 		return "bui/system/userList";
 	}
 	
@@ -42,16 +53,16 @@ public class UserInfoCotroller {
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/getAllUser",method=RequestMethod.POST)
+	@RequestMapping(value="/getAllUser",method={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public String getAllUser(Object pageinfo,Map<String, Object> map){
-		System.out.println(pageinfo);
-		List<User> userList = userInfoService.findAll();
+	public String getAllUser(@RequestParam(value="limit",required=false) Integer limit,@RequestParam(value="pageIndex",required=false) Integer pageIndex,@RequestParam(value="searchname",required=false) String searchname,@RequestParam(value="status",required=false) Integer status){
+		pageIndex=pageIndex*limit;
+		List<User> userList = userInfoService.findAll(limit,pageIndex,searchname,status);
 		
 		HashMap<String,Object > tUser = new HashMap<String,Object >();
 		
 		tUser.put("rows", userList);
-		tUser.put("results", userList.size());
+		tUser.put("results", userInfoService.totalCount(searchname,status));
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -76,6 +87,30 @@ public class UserInfoCotroller {
 		//因为页面使用spring的form标签，其中属性modelAttribute需要存在bean 要不会报错
 		map.put("command", new User());
 		return "addUser";
+	}
+	
+	@RequestMapping(value="/bind_Roles",method= {RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public String bindRoles(@RequestParam(value="user_id",required=false) Integer user_id,@RequestParam(value="role_ids",required=false) String role_ids){
+		String[] roleids=role_ids.split(",");
+		//遍历所有角色，依次绑定,绑定之前删除该用户原来的绑定信息
+		firstBaseInfoService.deleteByUserid(user_id);
+		for (int i = 0; i < roleids.length; i++) {
+			FirstBase userrole=new FirstBase();
+			userrole.setUser_id(user_id);
+			userrole.setRole_id(Integer.parseInt(roleids[i]));
+			firstBaseInfoService.insert(userrole);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsondata = mapper.writeValueAsString(roleids);
+
+			return jsondata;
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

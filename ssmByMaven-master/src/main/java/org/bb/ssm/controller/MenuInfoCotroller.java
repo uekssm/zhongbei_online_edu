@@ -123,13 +123,113 @@ public class MenuInfoCotroller {
 			e.printStackTrace();
 		}
 		return null;
-
-//		System.out.println("-------------------------");
-		
 	}
 
 	/**
 	 * 得到树形菜单
+	 * 创建修改选择父菜单，只要前两级菜单
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/tree" )
+	@ResponseBody
+	public String tree(HttpServletRequest request) {
+		List<Menu> menuList = menuInfoService.findAll();
+	
+		List<Map> list3 = new ArrayList<Map>();
+		for (Menu menus : menuList) {
+			HashMap<String , Object> tMenu3 = new HashMap<String , Object>();
+			if(menus.getParent_id()==null){
+				tMenu3.put("id", menus.getId());
+				tMenu3.put("text", menus.getName());
+				
+				List<Map> list2 = new ArrayList<Map>();
+				for (Menu menus1 : menuList) {
+					HashMap<String , Object> tMenu2 = new HashMap<String , Object>();
+					if (menus1.getParent_id()==menus.getId()) {
+						tMenu2.put("text", menus1.getName());
+						tMenu2.put("id", menus1.getId());
+						list2.add(tMenu2);
+					}
+					
+				}
+				tMenu3.put("children", list2);
+				
+				list3.add(tMenu3);
+			}
+			
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsondata = mapper.writeValueAsString(list3);
+			return jsondata;
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 得到树形菜单
+	 * 角色绑定菜单，需要全部菜单
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/trees" )
+	@ResponseBody
+	public String trees(HttpServletRequest request) {
+		List<Menu> menuList = menuInfoService.findAll();
+	
+		List<Map> list3 = new ArrayList<Map>();
+		for (Menu menus : menuList) {
+			HashMap<String , Object> tMenu3 = new HashMap<String , Object>();
+			if(menus.getParent_id()==null){
+				tMenu3.put("id", menus.getId());
+				tMenu3.put("text", menus.getName());
+				
+				List<Map> list2 = new ArrayList<Map>();
+				for (Menu menus1 : menuList) {
+					HashMap<String , Object> tMenu2 = new HashMap<String , Object>();
+					if (menus1.getParent_id()==menus.getId()) {
+						tMenu2.put("text", menus1.getName());
+						tMenu2.put("id", menus1.getId());
+						
+						List<Map> list = new ArrayList<Map>();
+						for (Menu menus2 : menuList) {
+							HashMap<String , Object> tMenu = new HashMap<String , Object>();
+							if (menus2.getParent_id()==menus1.getId()) {
+								tMenu.put("text", menus2.getName());
+								tMenu.put("id", menus2.getId());
+								list.add(tMenu);
+							}
+							
+						}
+						tMenu2.put("children", list);
+						
+						list2.add(tMenu2);
+					}
+					
+				}
+				tMenu3.put("children", list2);
+				
+				list3.add(tMenu3);
+			}
+			
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsondata = mapper.writeValueAsString(list3);
+			return jsondata;
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * 得到列表
 	 * 
 	 * @param map
 	 * @return
@@ -159,35 +259,7 @@ public class MenuInfoCotroller {
 		return null;
 	}
 
-	/**
-	 * 得到分页菜单信息
-	 * 
-	 * @param map
-	 * @return
-	 */
-	/*@RequestMapping(value = "/getPageMenu")
-	@ResponseBody
-	public String getPageMenu(Map<String, Object> map) {
-		List<Menu> menuList = menuInfoService.findPage();
-		
-		HashMap<String,Object > tUser = new HashMap<String,Object >();
-		
-		tUser.put("rows", menuList);
-		tUser.put("results", menuList.size());
-		
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			String jsondata = mapper.writeValueAsString(tUser);
-
-			//System.out.println(jsondata);
-			
-			return jsondata;
-			
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}*/
+	
 	
 	/**
 	 * 通过handler前往添加菜单页面
@@ -212,7 +284,7 @@ public class MenuInfoCotroller {
 	public String save(Menu menuinfo) {
 		int result = menuInfoService.insert(menuinfo);
 		System.out.println("添加菜单的操作结果为：" + result);
-		return "redirect:/menu/getAllMenu";
+		return "redirect:/menu/getPageMenu?limit=10&pageIndex=0&searchname=null&url=null";
 	}
 
 	/**
@@ -226,7 +298,7 @@ public class MenuInfoCotroller {
 		int result = menuInfoService.deleteByPrimaryKey(id);
 		System.out.println("删除菜单的操作结果为：" + result + "传递进来的id为：" + id);
 		System.out.println("***************************************");
-		return "redirect:/menu/getAllMenu";
+		return "redirect:/menu/getPageMenu?limit=10&pageIndex=0&searchname=null&url=null";
 	}
 
 	/**
@@ -258,6 +330,6 @@ public class MenuInfoCotroller {
 	@RequestMapping(value = "/addMenu", method = RequestMethod.PUT)
 	public String update(Menu menuinfo) {
 		menuInfoService.updateByPrimaryKey(menuinfo);
-		return "redirect:/menu/getAllMenu";
+		return "redirect:/menu/getPageMenu?limit=10&pageIndex=0&searchname=null&url=null";
 	}
 }

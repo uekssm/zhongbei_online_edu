@@ -59,7 +59,7 @@
           <div class="control-group span8">
             <label class="control-label">角色说明</label>
             <div class="controls">
-              <textarea name="about" data-rules="{required:true}" class="input-normal control-text"></textarea>
+              <textarea name="about" class="input-normal control-text"></textarea>
             </div>
           </div>
         </div>
@@ -147,9 +147,9 @@
       store = Search.createStore('${pageContext.request.contextPath }/role/getAllRole',{
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那么路径提交数据，同时附加参数saveType
-            addUrl : "{:U('SysRole/add')}",
-            updateUrl : "{:U('SysRole/update')}",
-            removeUrl : "{:U('SysRole/delete')}"
+            addUrl : "${pageContext.request.contextPath }/role/addRole",
+            updateUrl : "${pageContext.request.contextPath }/role/updaterole",
+            removeUrl : "${pageContext.request.contextPath }/role/delete"
           },
           method : 'POST'
         },
@@ -217,7 +217,7 @@
             id : '0',
             text : '0'
           },
-          url : "{:U('SysRole/trees')}",
+          url : "${pageContext.request.contextPath }/menu/trees",
           autoLoad : true/**/
         }),
       //由于这个树，不显示根节点，所以可以不指定根节点
@@ -276,7 +276,7 @@
             id : '0',
             text : '0'
           },
-          url : "{:U('SysRole/trees')}",
+          url : "${pageContext.request.contextPath }/menu/trees",
           autoLoad : true,
 
         }),

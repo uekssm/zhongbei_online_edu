@@ -190,9 +190,8 @@ function grant_role(value){
         		  return '';
               }else{
             	  editStr1 = '<span class="grid-command btn-edit" title="编辑">编辑</span>',
-            	  grantStr = '<span class="grid-command btn-grant" title="授权" onclick="grant_role(\''+value+'\')">绑定角色</span>',
                   delStr = '<span class="grid-command btn-del" title="删除">删除</span>';//页面操作不需要使用Search.createLink
-                return editStr1 + grantStr + delStr;
+                return editStr1 + delStr;
               }
           }}
         ],

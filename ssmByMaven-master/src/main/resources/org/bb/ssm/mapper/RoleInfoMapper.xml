@@ -17,8 +17,18 @@
   </select>
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT * FROM uek_privilege_role where name like CONCAT('%', #{searchname}, '%') limit #{pageIndex},#{limit}
+  	SELECT * FROM uek_privilege_role 
+  		where 1=1 
+  		<if test="searchname !=null">
+  			and name like CONCAT('%', #{searchname}, '%') 
+  		</if>
+  		<if test="limit !=null">
+  			limit #{pageIndex},#{limit}
+  		</if>
+  		
   </select>
+  
+
   
   <!-- 取得记录的总数 -->  
 	<select id="getRoleCount" resultType="java.lang.Integer">  
@@ -30,7 +40,7 @@
     delete from uek_privilege_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.bb.ssm.model.Role" >
+  <insert id="insert" parameterType="org.bb.ssm.model.Role" useGeneratedKeys="true" keyProperty="id" >
     insert into uek_privilege_role (id, name, 
       about)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},  

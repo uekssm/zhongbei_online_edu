@@ -3,6 +3,7 @@ package org.bb.ssm.service;
 import java.util.List;
 
 import org.bb.ssm.model.Knowledge;
+import org.bb.ssm.model.Menu;
 
 /**
  * Dao层是和数据库打交道的，Service层会封装具体的业务。有点抽象.. e.g. 用户管理系统
@@ -17,7 +18,7 @@ public interface KnowledgeInfoService {
 
 	List<Knowledge> findAll();
 	
-	int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(String[] ids);
 
 	int insert(Knowledge record);
 
@@ -30,4 +31,9 @@ public interface KnowledgeInfoService {
 	int updateByPrimaryKeySelective(Knowledge record);
 
 	int updateByPrimaryKey(Knowledge record);
+
+	int totalCount(String searchname, int course_id);
+	
+	List<Knowledge> findAllByPage(Integer limit, Integer pageIndex,
+			String searchname, Integer course_id);
 }

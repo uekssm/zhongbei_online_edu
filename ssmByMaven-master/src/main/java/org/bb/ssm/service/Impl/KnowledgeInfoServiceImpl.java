@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.bb.ssm.mapper.KnowledgeInfoMapper;
 import org.bb.ssm.model.Knowledge;
+import org.bb.ssm.model.Menu;
 import org.bb.ssm.service.KnowledgeInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,10 +44,10 @@ public class KnowledgeInfoServiceImpl implements KnowledgeInfoService {
 		return list;
 	}
 	
-	@Override
+	/*@Override
 	public int deleteByPrimaryKey(Integer id) {
 		return mapper.deleteByPrimaryKey(id);
-	}
+	}*/
 
 	@Override
 	public int insert(Knowledge record) {
@@ -75,8 +76,24 @@ public class KnowledgeInfoServiceImpl implements KnowledgeInfoService {
 
 	@Override
 	public Knowledge selectByPwd(Knowledge record) {
-		// TODO Auto-generated method stub
 		return mapper.selectByPwd(record);
+	}
+
+	@Override
+	public int totalCount(String searchname, int course_id) {
+		return (int) mapper.getKnowledgeCount(searchname,course_id);
+	}
+
+	@Override
+	public List<Knowledge> findAllByPage(Integer limit, Integer pageIndex,
+			String searchname, Integer course_id) {
+		List<Knowledge> list = mapper.findAllByPage(limit,pageIndex,searchname,course_id);
+		return list;
+	}
+
+	@Override
+	public int deleteByPrimaryKey(String[] ids) {
+		return mapper.deleteByPrimaryKey(ids);
 	}
 
 }

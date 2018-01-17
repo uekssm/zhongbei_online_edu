@@ -24,6 +24,33 @@
   
   <select id="findAll" resultMap="BaseResultMap">
   	SELECT a.*,b.name pname FROM uek_organization_position a left join uek_organization_position b on a.parent_id=b.id
+  	where 1=1 
+	  	<if test="searchname !=null">
+	  		and a.name like CONCAT('%', #{searchname}, '%') 
+	  	</if>
+	  	<if test="department_id !=null and department_id>0">
+	  		and a.department_id=#{department_id} 	  	
+	  	</if>
+	  	<if test="limit !=null">
+	  		limit #{pageIndex},#{limit} 
+	  	</if>
+  	 
+  </select>
+  
+  <select id="getPositionCount" resultType="java.lang.Integer">  
+	  SELECT COUNT(*) FROM uek_organization_position 
+	  	where 1=1 
+	  	<if test="searchname !=null">
+	  		and name like CONCAT('%', #{searchname}, '%') 
+	  	</if>
+	  	<if test="department_id !=null and department_id">
+	  		and department_id=#{department_id} 	  	
+	  	</if>
+
+  </select>  
+  
+  <select id="findRoleidById"  resultType="java.lang.Integer">
+  	SELECT role_id FROM uek_organization_position where id=#{id}
   </select>
   
   <select id="findPage" resultMap="BaseResultMap">
@@ -39,10 +66,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.bb.ssm.model.Position" >
-    insert into uek_organization_position (id, name, parent_id, 
-      target_href)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{parent_id,jdbcType=INTEGER}, 
-      #{target_href,jdbcType=VARCHAR})
+    insert into uek_organization_position (name, duty, department_id,parent_id,role_id)
+    values (#{name,jdbcType=VARCHAR},#{duty,jdbcType=VARCHAR}, 
+    	#{department_id,jdbcType=INTEGER},#{parent_id,jdbcType=VARCHAR},#{role_id,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.bb.ssm.model.Position" >
     insert into uek_organization_position

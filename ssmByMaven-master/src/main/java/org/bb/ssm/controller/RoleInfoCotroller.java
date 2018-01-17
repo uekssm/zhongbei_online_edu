@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bb.ssm.model.FirstBase;
 import org.bb.ssm.model.Role;
+import org.bb.ssm.service.FirstBaseInfoService;
 import org.bb.ssm.service.RoleInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class RoleInfoCotroller {
 	
 	@Autowired
 	private RoleInfoService roleInfoService;
+	
+	@Autowired
+	private FirstBaseInfoService firstBaseInfoService;
 	
 	/**
 	 * 角色列表页
@@ -75,6 +80,40 @@ public class RoleInfoCotroller {
 		//因为页面使用spring的form标签，其中属性modelAttribute需要存在bean 要不会报错
 		map.put("command", new Role());
 		return "addRole";
+	}
+	
+	/**
+	 * 角色信息修改或绑定菜单操作
+	 * @return
+	 */
+	@RequestMapping(value="/updaterole",method= {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String updaterole(@RequestParam(value="id",required=false) Integer id,@RequestParam(value="name",required=false) String name,@RequestParam(value="about",required=false) String about,@RequestParam(value="menus",required=false) String menus){
+		String[] menuids=menus.split(",");
+		//修改角色信息
+		Role role=new Role();
+		role.setId(id);
+		role.setName(name);
+		role.setAbout(about);
+		roleInfoService.updateByPrimaryKey(role);
+		//遍历所有菜单，依次绑定,绑定之前删除该角色户原来的绑定信息
+		firstBaseInfoService.deleteByRoleid(id);
+		for (int i = 0; i < menuids.length; i++) {
+			FirstBase rolemenu=new FirstBase();
+			rolemenu.setRole_id(id);
+			rolemenu.setMenu_id(Integer.parseInt(menuids[i]));
+			firstBaseInfoService.bindmenu(rolemenu);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			String jsondata = mapper.writeValueAsString(menuids);
+
+			return jsondata;
+			
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**

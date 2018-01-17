@@ -15,7 +15,7 @@ import org.bb.ssm.model.Position;
  */
 public interface PositionInfoService {
 
-	List<Position> findAll();
+	List<Position> findAll(Integer limit, Integer pageIndex, String searchname, Integer department_id);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -32,4 +32,8 @@ public interface PositionInfoService {
 	List<Position> findOne();
 	
 	List<Position> findPage();
+
+	int totalCount(String searchname, Integer department_id);
+
+	int findRoleidById(Integer id);
 }

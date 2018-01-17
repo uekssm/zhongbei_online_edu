@@ -35,15 +35,15 @@
       <form id="searchForm" class="form-horizontal span24">
         <div class="row">
           <div class="control-group span7">
-            <label class="control-label">名称：</label>
+            <label class="control-label">职位名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="name">
+              <input type="text" class="control-text" name="searchname">
             </div>
           </div>
           <div class="control-group span7">
-            <label class="control-label">链接：</label>
+            <label class="control-label">所属部门：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="url">
+              <input type="text" class="control-text" name="department_id">
             </div>
           </div>
           <div class="span3 ">
@@ -65,27 +65,33 @@
         <input type="hidden" name="id">
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>名称</label>
+            <label class="control-label"><s>*</s>职位名称</label>
             <div class="controls">
               <input name="name" type="text" data-rules="{required:true}" class="input-normal control-text">
             </div>
           </div>
-          </div>
-        <div class="row">
           <div class="control-group span8">
-            <label class="control-label">url</label>
+            <label class="control-label">岗位职责</label>
             <div class="controls">
 				<input name="target_href" type="text" class="input-normal control-text">
 
 		     </div>
           </div>
         </div>
+        
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>pid</label>
+            <label class="control-label"><s>*</s>所属部门</label>
            <div class="controls" id="s1">
-					    <input type="text" id="show" name="parent_id" data-rules="{required:true}" class="input-normal control-text">
-					    <input type="hidden" id="hide"  name="hide">
+					    <input type="text" id="show" name="show" data-rules="{required:true}" class="input-normal control-text">
+					    <input type="hidden" id="hide"  name="department_id">
+		     </div>
+          </div>
+          <div class="control-group span8">
+            <label class="control-label">上级职位</label>
+           <div class="controls" id="s1">
+					    <input type="text" id="show1" name="show1" class="input-normal control-text">
+					    <input type="hidden" id="hide1"  name="parent_id">
 		     </div>
           </div>
         </div>
@@ -129,9 +135,9 @@
         triggerCls : 'btn-edit'
       }),
       columns = [
-          {title:'编号',dataIndex:'number',width:80},
-          {title:'名称',dataIndex:'name',width:100},
-          {title:'描述',dataIndex:'description',width:300},
+          {title:'职位名称',dataIndex:'name',width:100},
+          {title:'岗位职责',dataIndex:'description',width:200},
+          {title:'所属部门',dataIndex:'department_id',width:150},
           {title:'上级职位',dataIndex:'pname',width:100},/* 
           {title:'状态',dataIndex:'status',width:100,visible:false}, */
           {title:'操作',dataIndex:'',width:200,renderer : function(value,obj){
@@ -147,9 +153,9 @@
       store = Search.createStore('${pageContext.request.contextPath }/position/getAllPosition',{
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那么路径提交数据，同时附加参数saveType
-            addUrl : "{:U('SysMenu/add')}",
-            updateUrl : "{:U('SysMenu/update')}",
-            removeUrl : "{:U('SysMenu/delete')}"
+            addUrl : "${pageContext.request.contextPath }/position/addposition",
+            updateUrl : "${pageContext.request.contextPath }/position/updatePosition",
+            removeUrl : "${pageContext.request.contextPath }/position/delete"
           },
           method : 'POST'
         },
@@ -174,7 +180,7 @@
       grid = search.get('grid');
 
     function addFunction(){
-      var newData = {isNew : true}; //标志是新增加的记录
+      var newData = {isNew : true,id:0}; //标志是新增加的记录
       editing.add(newData,'name'); //添加记录后，直接编辑
     }
 
@@ -207,6 +213,7 @@
     });
   });
 
+  /* 异步获取部门-树 */
   BUI.use(['bui/extensions/treepicker','bui/tree','bui/data'],function(TreePicker,Tree,Data){
 
       //树节点数据，
@@ -219,7 +226,7 @@
             id : '0',
             text : '0'
           },
-          url : "{:U('SysMenu/trees')}",
+          url : "${pageContext.request.contextPath }/department/tree",
           autoLoad : true/**/
         }),
       //由于这个树，不显示根节点，所以可以不指定根节点
@@ -232,6 +239,46 @@
     var  picker = new TreePicker({
         trigger : '#show',
         valueField : '#hide', //如果需要列表返回的value，放在隐藏域，那么指定隐藏域
+        width:150,  //指定宽度
+        children : [tree], //配置picker内的列表
+        autoRender : true
+      });
+
+    //picker.render();
+
+    //数据加载完成后，执行选中操作
+    store2.on('load',function(){
+      var value = '4';
+      picker.setSelectedValue(value);
+    });
+  });
+  
+  /* 异步获取职位-树 */
+  BUI.use(['bui/extensions/treepicker','bui/tree','bui/data'],function(TreePicker,Tree,Data){
+
+      //树节点数据，
+      //text : 文本，
+      //id : 节点的id,
+      //leaf ：标示是否叶子节点，可以不提供，根据childern,是否为空判断
+      //expanded ： 是否默认展开
+      var store2 = new Data.TreeStore({
+          root : {
+            id : '0',
+            text : '0'
+          },
+          url : "${pageContext.request.contextPath }/position/tree",
+          autoLoad : true/**/
+        }),
+      //由于这个树，不显示根节点，所以可以不指定根节点
+      tree = new Tree.TreeList({
+        store : store2,
+        //dirSelectable : false,//阻止树节点选中
+        showLine : true //显示连接线
+      });
+
+    var  picker = new TreePicker({
+        trigger : '#show1',
+        valueField : '#hide1', //如果需要列表返回的value，放在隐藏域，那么指定隐藏域
         width:150,  //指定宽度
         children : [tree], //配置picker内的列表
         autoRender : true

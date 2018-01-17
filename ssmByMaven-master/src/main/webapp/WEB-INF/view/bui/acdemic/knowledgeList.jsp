@@ -47,21 +47,20 @@ function grant_role(value){
           <div class="control-group span8">
             <label class="control-label">名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="universityname">
+              <input type="text" class="control-text" name="searchname">
             </div>
           </div>
           <div class="control-group span8">
-            <label class="control-label">状态：</label>
+            <label class="control-label">所属课程：</label>
             <div class="controls">
-              <select name="status" class="control-text">
+              <select name="course_id" class="control-text" style="height:30px">
               	<option value="0">请选择</option>
-                <option value="1">正常</option>
-                <option value="2">禁用</option>
+                
               </select>
             </div>
           </div>
           <div class="span3 offset2">
-            <button  type="button" id="btnSearch" class="button button-small button-primary">搜索</button>
+            <button  type="button" id="btnSearch" class="button button-small button-primary" style="height:25px;width:50px">搜索</button>
           </div>
         </div>
       </form>
@@ -235,9 +234,9 @@ function grant_role(value){
             updateUrl : "{:U('Sysuniversity/update')}",
             bindRolesUrl : "{:U('Sysuniversity/bindRoles')}",
             grantUrl : "{:U('Sysuniversity/grant')}",
-            removeUrl : "{:U('Sysuniversity/delete')}"
+            removeUrl : "${pageContext.request.contextPath }/knowledge/delete"
           },
-          //method : 'POST',
+          method : 'POST',
         },
         autoSync : true ,//保存数据后，自动更新
         pageSize:10

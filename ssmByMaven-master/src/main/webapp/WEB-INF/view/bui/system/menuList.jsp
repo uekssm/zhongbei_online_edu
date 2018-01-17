@@ -82,10 +82,10 @@
         </div>
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>pid</label>
+            <label class="control-label"><s>*</s>父菜单</label>
            <div class="controls" id="s1">
-					    <input type="text" id="show" name="parent_id" data-rules="{required:true}" class="input-normal control-text">
-					    <input type="hidden" id="hide"  name="hide">
+					    <input type="text" id="show" name="show" data-rules="{required:true}" class="input-normal control-text">
+					    <input type="hidden" id="hide"  name="parent_id">
 		     </div>
           </div>
         </div>
@@ -147,9 +147,9 @@
       store = Search.createStore('${pageContext.request.contextPath }/menu/getPageMenu',{
         proxy : {
           save : { //也可以是一个字符串，那么增删改，都会往那么路径提交数据，同时附加参数saveType
-            addUrl : "{:U('SysMenu/add')}",
-            updateUrl : "{:U('SysMenu/update')}",
-            removeUrl : "{:U('SysMenu/delete')}"
+            addUrl : "${pageContext.request.contextPath }/menu/addMenu",
+            updateUrl : "${pageContext.request.contextPath }/menu/updateMenu",
+            removeUrl : "${pageContext.request.contextPath }/menu/delete"
           },
           method : 'POST'
         },
@@ -219,7 +219,7 @@
             id : '0',
             text : '0'
           },
-          url : "{:U('SysMenu/trees')}",
+          url : "${pageContext.request.contextPath }/menu/tree",
           autoLoad : true/**/
         }),
       //由于这个树，不显示根节点，所以可以不指定根节点

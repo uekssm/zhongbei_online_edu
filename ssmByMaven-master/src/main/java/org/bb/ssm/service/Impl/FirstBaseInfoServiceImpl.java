@@ -4,16 +4,16 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.bb.ssm.mapper.UserInfoMapper;
-import org.bb.ssm.model.User;
-import org.bb.ssm.service.UserInfoService;
+import org.bb.ssm.mapper.FirstBaseInfoMapper;
+import org.bb.ssm.model.FirstBase;
+import org.bb.ssm.service.FirstBaseInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 //可以消除xml中对bean的配置
 @Service
 // 此处使用spring的声明式事务，不在使用sqlsession和提交事务了
 @Transactional
-public class UserInfoServiceImpl implements UserInfoService {
+public class FirstBaseInfoServiceImpl implements FirstBaseInfoService {
 
 	@Resource
 	/**
@@ -32,9 +32,16 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 *4.
 	 *如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配；
 	 */
-	private UserInfoMapper mapper;
+	private FirstBaseInfoMapper mapper;
 
-	
+	/**
+	 * 查询FirstBaseInfo表所有数据
+	 */
+	@Override
+	public List<FirstBase> findAll() {
+		List<FirstBase> list = mapper.findAll();
+		return list;
+	}
 	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -42,46 +49,49 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public int insert(User record) {
+	public int insert(FirstBase record) {
 		return mapper.insert(record);
 	}
 
 	@Override
-	public int insertSelective(User record) {
+	public int insertSelective(FirstBase record) {
 		return mapper.insertSelective(record);
 	}
 
 	@Override
-	public User selectByPrimaryKey(Integer id) {
+	public FirstBase selectByPrimaryKey(Integer id) {
 		return mapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public int updateByPrimaryKeySelective(User record) {
+	public int updateByPrimaryKeySelective(FirstBase record) {
 		return mapper.updateByPrimaryKeySelective(record);
 	}
 
 	@Override
-	public int updateByPrimaryKey(User record) {
+	public int updateByPrimaryKey(FirstBase record) {
 		return mapper.updateByPrimaryKey(record);
 	}
 
 	@Override
-	public User selectByPwd(User record) {
+	public FirstBase selectByPwd(FirstBase record) {
 	
 		return mapper.selectByPwd(record);
 	}
 
 	@Override
-	public List<User> findAll(Integer limit, Integer pageIndex,
-			String searchname, Integer status) {
-		List<User> list = mapper.findAll(limit,pageIndex,searchname,status);
-		return list;
+	public int deleteByUserid(Integer user_id) {
+		return mapper.deleteByUserid(user_id);
 	}
 
 	@Override
-	public int totalCount(String searchname, Integer status) {
-		return (int) mapper.getUserCount(searchname,status);
+	public int deleteByRoleid(Integer id) {
+		return mapper.deleteByRoleid(id);
+	}
+
+	@Override
+	public int bindmenu(FirstBase rolemenu) {
+		return mapper.bindmenu(rolemenu);
 	}
 
 }

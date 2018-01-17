@@ -2,11 +2,12 @@ package org.bb.ssm.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.bb.ssm.model.User;
 
 public interface UserInfoMapper {
 	
-	List<User> findAll();
+	List<User> findAll(@Param(value="limit") Integer limit,@Param(value="pageIndex") Integer pageIndex,@Param(value="searchname") String searchname,@Param(value="status") Integer status);
 	
     int deleteByPrimaryKey(Integer userId);
 
@@ -21,4 +22,6 @@ public interface UserInfoMapper {
     int updateByPrimaryKey(User record);
 
 	User selectByPwd(User record);
+
+	int getUserCount(@Param(value="searchname") String searchname,@Param(value="status") Integer status);
 }
