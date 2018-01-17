@@ -54,7 +54,7 @@
                   <li></li>
                   <li></li>
               </ul>
-              <a href="index.html">网站首页</a>
+              <a href="http://localhost:8080/ssmStage/login/main">网站首页</a>
           </li>
           <li class="list">
               <ul class="point">
@@ -75,7 +75,7 @@
                   <li></li>
                   <li></li>
               </ul>
-              <a href="">后台管理</a>
+              <a href="http://localhost:8080/ssm/login/login">后台管理</a>
           </li>
       </ul>
       <!--nav-->
@@ -87,7 +87,7 @@
 		    <!-- 面包屑 -->
 			<div class="more_bread">
 				 <img src="../stageRescourse/image/more/more01.png" alt="">
-				 <a href="index.html">首页</a>
+				 <a href="http://localhost:8080/ssmStage/login/main">首页</a>
 				 <img src="../stageRescourse/image/more/more02.png" alt="">
 				 <img src="../stageRescourse/image/more/more03.png" alt="">
 				 <a href="">课程安排</a>
@@ -321,6 +321,7 @@
 						}
 						if(type==1){
 							if(totalcourse>9){
+							
 								pagenum=Math.ceil(totalcourse/9);
 								$('.pagetotal').val(pagenum);//隐藏域记录总页数
 								$('span.pageoption').remove();
@@ -331,6 +332,7 @@
 									$('.nextpage').before("<span class='pageoption' pageindex='"+(j-1)+"'>"+j+"</span>")
 								}
 								$('span.pageoption:first').addClass('hot');
+								$('.more_fenye').show();
 							}else{
 								$('.more_fenye').hide();
 							}

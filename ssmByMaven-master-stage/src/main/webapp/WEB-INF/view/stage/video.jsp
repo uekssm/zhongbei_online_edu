@@ -2,7 +2,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -11,6 +11,13 @@
 	<link rel="stylesheet" href="../../stageRescourse/css/header.css">
 	<link rel="stylesheet" href="../../stageRescourse/css/content.css">
 	<link rel="stylesheet" href="../../stageRescourse/css/footer.css">
+	<style type="text/css">
+		.nextborder{
+			height:1665px;
+			overflow:auto;
+			width:584px;
+		}
+	</style>
 </head>
 <body>
 <header id="header">
@@ -49,7 +56,7 @@
                   <li></li>
                   <li></li>
               </ul>
-              <a href="index.html">网站首页</a>
+              <a href="http://localhost:8080/ssmStage/login/main">网站首页</a>
           </li>
           <li class="list">
               <ul class="point">
@@ -70,7 +77,7 @@
                   <li></li>
                   <li></li>
               </ul>
-              <a href="">后台管理</a>
+              <a href="http://localhost:8080/ssm/login/login">后台管理</a>
           </li>
       </ul>
       <!--nav-->
@@ -81,7 +88,7 @@
 	    	<!-- 面包屑 -->
 			<div class="more_bread">
 				 <img src="../../stageRescourse/image/more/more01.png" alt="">
-				 <a href="index.html">首页</a>
+				 <a href="http://localhost:8080/ssmStage/login/main">首页</a>
 				 <img src="../../stageRescourse/image/more/more02.png" alt="">
 				 <img src="../../stageRescourse/image/more/more03.png" alt="">
 				 <a href="">视频</a>
@@ -100,7 +107,9 @@
 		    <!-- 播放视频部分 -->
 			<div class="content_vdisplay">
 		     <%-- <video src="${pageContext.request.contextPath }${videoinfo.get(0).video }" controls></video> --%>
-		     <video src="http://localhost:8080/ssm/${videoinfo.get(0).video }" controls></video>
+		     <video controls id="oneknowledge">
+		     	<source src="http://localhost:8080/ssm/${videoinfo.get(0).video }" type="video/mp4">
+		     </video>
 				<div class="more_title">
 					<h2>${videoinfo.get(0).name }</h2>
 				    <h3>摄影艺术 高级突破 摄影艺术</h3>
@@ -301,6 +310,7 @@
 			</div>
 			<!-- 正在播放结束 -->
 			<h1 class="next">接下来播放</h1>
+			<div class="nextborder">
 			<c:forEach items="${requestScope.videoinfo }" var="videoval">
 				<%-- <div class="content_list" knowledge="${videoval.name }" videourl="${pageContext.request.contextPath }${videoval.video }"> --%>
 				<div class="content_list" knowledge="${videoval.name }" videourl="http://localhost:8080/ssm/${videoval.video }">
@@ -319,7 +329,7 @@
 				</div>
 					
 			</c:forEach>
-			
+			</div>
 			
 			
 		</div>
@@ -337,6 +347,12 @@
 <!-- 点击免费观看切换视频 -->
 <script src="../../stageRescourse/js/jquery-3.2.1.js"></script>
 <script>
+	//如果登录且优播放记录则自动续播
+	if("${userinfo.getId()}">0 &&"${overtime}"){
+		video=document.getElementById("oneknowledge");
+		video.currentTime="${overtime}";
+	}
+
 	$('body').on('click','.changevideo',function(){
 		//更改当前播放的视频及详情
 		$('.content_vdisplay video').attr('src',$(this).parents('.content_list').attr('videourl'));
@@ -346,7 +362,34 @@
 		$('.current_video h2').html($(this).parents('.content_list').attr('knowledge'));
 		//在接下来播放列表移除刚点击播放的视频	
 		$(this).parents('.content_list').remove();
-	})
+	});
+	
+	function insertovertime(overtime,userid){
+		//异步记录
+			$.ajax({
+				url:"${pageContext.request.contextPath }/course/videorecord",
+				async:false,
+				type:"post",
+				data:{"overtime":overtime,"user_id":userid},
+				success:function(){
+				
+				}
+			});
+	}
+	//当暂停播放或退出页面时，记录上次播放时间，进行续播（或者不考虑暂停的情况）,同时判断是否登录，登录才进行记录
+	window.onbeforeunload=function(){
+		if("${userinfo.getId()}">0){
+			video=document.getElementById("oneknowledge");
+			var overtime=Math.floor(video.currentTime);
+			var userid="${userinfo.getId()}";
+			insertovertime(overtime,userid);
+		}
+		
+		return;//"已为您记录播放进度，下次直接为您续播";
+	};
+	
+	
+	
 </script>
 </body>
 </html>

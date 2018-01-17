@@ -4,12 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.bb.ssm.model.College;
 import org.bb.ssm.model.Course;
+import org.bb.ssm.model.SecBase;
 import org.bb.ssm.model.Subject;
+import org.bb.ssm.model.User;
 import org.bb.ssm.service.CollegeInfoService;
 import org.bb.ssm.service.CourseInfoService;
 import org.bb.ssm.service.KnowledgeInfoService;
+import org.bb.ssm.service.SecBaseInfoService;
 import org.bb.ssm.service.SubjectInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +43,9 @@ public class CourseInfoCotroller {
 	
 	@Autowired
 	private KnowledgeInfoService knowledgeInfoService;
+	
+	@Autowired
+	private SecBaseInfoService secBaseInfoService;
 	
 	/**
 	 * 课程列表页
@@ -90,9 +98,28 @@ public class CourseInfoCotroller {
 	 * @return
 	 */
 	@RequestMapping(value="/video/{id}",method=RequestMethod.GET)
-	public String video(@PathVariable(value="id") Integer id,Map<String, Object> map){
+	public String video(@PathVariable(value="id") Integer id,Map<String, Object> map,HttpSession httpSession){
+		User userinfo=(User) httpSession.getAttribute("userinfo");
+		//判断是否登录，登录则将信息给到页面中
+		if(userinfo!=null){
+			map.put("userinfo", userinfo);
+			//根据当前用户查找对应的播放记录进行续播
+			String overtime=secBaseInfoService.findtimeByUserid(userinfo.getId());
+			if(overtime != null){
+				map.put("overtime", overtime);
+			}
+		}
 		map.put("videoinfo", knowledgeInfoService.selectByCourseId(134));
 		return "stage/video";
+	}
+	
+	@RequestMapping(value="/videorecord",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public String videorecord(SecBase videorecord){
+		//插入新的记录值前先删除原来的
+		secBaseInfoService.deleteByUserid(videorecord.getUser_id());
+		secBaseInfoService.insert(videorecord);
+		return null;
 	}
 	
 	/**

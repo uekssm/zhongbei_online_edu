@@ -53,7 +53,7 @@
                   <li></li>
                   <li></li>
               </ul>
-              <a href="index.html">网站首页</a>
+              <a href="http://localhost:8080/ssmStage/login/main">网站首页</a>
           </li>
           <li class="list">
               <ul class="point">
@@ -74,7 +74,7 @@
                   <li></li>
                   <li></li>
               </ul>
-              <a href="">后台管理</a>
+              <a href="http://localhost:8080/ssm/login/login">后台管理</a>
           </li>
       </ul>
       <!--nav-->

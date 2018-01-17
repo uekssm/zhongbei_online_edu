@@ -164,7 +164,8 @@ body{
 /* 瑙嗛璇剧▼鍒楄〃 */
 #more_course .more_courseBox{
 	width: 100%;
-	height: 1768px;
+	/* height: 1768px; */
+	height:auto;
 	overflow: hidden;
 	display: flex;
 	flex-wrap: wrap;
@@ -226,6 +227,10 @@ body{
 	color: #343434;
 	line-height: 27px;
 	transition: all 1s;
+	width:310px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 #more_course .more_courseBox li .more_title h3{
 	width: 130px;
