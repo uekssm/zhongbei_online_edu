@@ -87,11 +87,17 @@ public class MenuInfoCotroller {
 						List<HashMap<String , String>> list = new ArrayList<HashMap<String , String>>();
 						for (Menu menus2 : menuList) {
 							HashMap<String , String> tMenu1 = new HashMap<String , String>();
+							
+							//System.out.println(menus2.getParent_id());
+							//System.out.println(menus1.getId());
+							
+							//System.out.println(menus2.getParent_id()==menus1.getId());
 							if(menus2.getParent_id()==menus1.getId()){
+								//System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++");
 								tMenu1.put("id" , ""+menus2.getId());
 								tMenu1.put("text" ,menus2.getName());
 								tMenu1.put("href" , request.getContextPath()+"/"+menus2.getTarget_href());
-								
+								//System.out.println(tMenu1);
 								list.add(tMenu1);
 							}
 							

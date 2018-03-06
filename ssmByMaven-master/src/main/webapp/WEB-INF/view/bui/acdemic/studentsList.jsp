@@ -39,6 +39,10 @@ function grant_role(value){
  <body>
 
   <div class="container">
+  	<a id="download_href" href="http://localhost:8080/ssm/resourse/import_studentsInfo_file.xlsx" style="display:none"></a>
+  	<form enctype="multipart/form-data">
+  		<input type="file" id="btn_file" style="display:none" onchange="uploadFile(this)" name="excelFile">
+    </form>
     <div class="row">
       <form id="searchForm" class="form-horizontal span24">
         <div class="row">
@@ -46,11 +50,11 @@ function grant_role(value){
           <div class="control-group span8">
             <label class="control-label">名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="universityname">
+              <input type="text" class="control-text" name="searchname">
             </div>
           </div>
-          <div class="control-group span8">
-            <label class="control-label">状态：</label>
+          <!-- <div class="control-group span8">
+            <label class="control-label">班级：</label>
             <div class="controls">
               <select name="status" class="control-text">
               	<option value="0">请选择</option>
@@ -58,7 +62,7 @@ function grant_role(value){
                 <option value="2">禁用</option>
               </select>
             </div>
-          </div>
+          </div> -->
           <div class="span3 offset2">
             <button  type="button" id="btnSearch" class="button button-small button-primary">搜索</button>
           </div>
@@ -117,7 +121,7 @@ function grant_role(value){
 
   
   <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
-
+  <script type="text/javascript" src="../scripts/ajaxfileupload.js"></script>
   <script type="text/javascript" src="../assets/js/bui-min.js"></script>
 
   <script type="text/javascript" src="../assets/js/config-min.js"></script>
@@ -218,7 +222,9 @@ function grant_role(value){
           tbar : {
             items : [
               {text : '<i class="icon-plus"></i>新建',btnCls : 'button button-small',handler:addFunction},
-              {text : '<i class="icon-remove"></i>删除',btnCls : 'button button-small',handler : delFunction}
+              {text : '<i class="icon-remove"></i>删除',btnCls : 'button button-small',handler : delFunction},
+              {text : '<i class="icon-upload"></i>批量导入',btnCls : 'button button-small',handler : F_Open_dialog},
+              {text : '<i class="icon-download"></i>下载模板',btnCls : 'button button-small',handler : download_temp}
             ]
           },
           emptyDataTpl:'<div class="centered"><img alt="Crying" src="__PUBLIC__/img/nodata.png"><h2>查询的数据不存在</h2></div>',
@@ -230,7 +236,9 @@ function grant_role(value){
     	          tbar : {
     	            items : [
     	              {text : '<i class="icon-plus"></i>新建',btnCls : 'button button-small',handler:addFunction},
-    	              {text : '<i class="icon-remove"></i>删除',btnCls : 'button button-small',handler : delFunction}
+    	              {text : '<i class="icon-remove"></i>删除',btnCls : 'button button-small',handler : delFunction},
+    	              {text : '<i class="icon-upload"></i>批量导入',btnCls : 'button button-small',handler : F_Open_dialog},
+              		  {text : '<i class="icon-download"></i>下载模板',btnCls : 'button button-small',handler : download_temp}
     	            ]
     	          },
     	          emptyDataTpl:'<div class="centered"><img alt="Crying" src="__PUBLIC__/img/nodata.png"><h2>查询的数据不存在</h2></div>',
@@ -254,6 +262,17 @@ function grant_role(value){
       var selections = grid.getSelection();
       delItems(selections);
     }
+    
+    //批量导入
+    function F_Open_dialog() 
+	{ 
+		document.getElementById("btn_file").click(); 
+	}
+	
+	//下载模板
+	function download_temp(){
+		document.getElementById("download_href").click();
+	}
 
     function delItems(items){
       var ids = [];
@@ -303,6 +322,27 @@ function grant_role(value){
 
 	  });
 
+</script>
+<script>
+	function uploadFile(obj) {  
+		alert(111);
+	    $.ajaxFileUpload({  
+	        url : "http://localhost:8080/ssm/students/importStudents",  
+	        secureuri : false,  
+		    fileElementId : 'btn_file',  
+		    success : function(res, status) { //服务器成功响应处理函数  
+		        if (status) {  
+		            alert("导入成功");
+		            window.location.reload();
+		        }
+		    },  
+		    error : function(res, status, e) {//服务器响应失败处理函数  
+		            alert("导入数据异常：文件导入过程异常。");  
+		    }  
+		      
+	    });  
+	    return false;  
+	} 
 </script>
 </body>
 </html>

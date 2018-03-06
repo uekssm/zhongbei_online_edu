@@ -1,20 +1,19 @@
 package org.bb.ssm.service.Impl;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.bb.ssm.mapper.StudentsInfoMapper;
-import org.bb.ssm.model.Students;
-import org.bb.ssm.service.StudentsInfoService;
+import org.bb.ssm.mapper.ResourceManagerInfoMapper;
+import org.bb.ssm.model.ResourceManager;
+import org.bb.ssm.service.ResourceManagerInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 //可以消除xml中对bean的配置
 @Service
 // 此处使用spring的声明式事务，不在使用sqlsession和提交事务了
 @Transactional
-public class StudentsInfoServiceImpl implements StudentsInfoService {
+public class ResourceManagerInfoServiceImpl implements ResourceManagerInfoService {
 
 	@Resource
 	/**
@@ -33,16 +32,9 @@ public class StudentsInfoServiceImpl implements StudentsInfoService {
 	 *4.
 	 *如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配；
 	 */
-	private StudentsInfoMapper mapper;
+	private ResourceManagerInfoMapper mapper;
 
-	/**
-	 * 查询StudentsInfo表所有数据
-	 */
-	@Override
-	public List<Students> findAll(Integer limit, Integer pageIndex, String searchname) {
-		List<Students> list = mapper.findAll(limit,pageIndex,searchname);
-		return list;
-	}
+	
 	
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
@@ -50,43 +42,52 @@ public class StudentsInfoServiceImpl implements StudentsInfoService {
 	}
 
 	@Override
-	public int insert(Students record) {
+	public int insert(ResourceManager record) {
 		return mapper.insert(record);
 	}
 
 	@Override
-	public int insertSelective(Students record) {
+	public int insertSelective(ResourceManager record) {
 		return mapper.insertSelective(record);
 	}
 
 	@Override
-	public Students selectByPrimaryKey(Integer id) {
+	public ResourceManager selectByPrimaryKey(Integer id) {
 		return mapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public int updateByPrimaryKeySelective(Students record) {
+	public int updateByPrimaryKeySelective(ResourceManager record) {
 		return mapper.updateByPrimaryKeySelective(record);
 	}
 
 	@Override
-	public int updateByPrimaryKey(Students record) {
+	public int updateByPrimaryKey(ResourceManager record) {
 		return mapper.updateByPrimaryKey(record);
 	}
 
 	@Override
-	public Students selectByPwd(Students record) {
+	public ResourceManager selectByPwd(ResourceManager record) {
+	
 		return mapper.selectByPwd(record);
 	}
 
 	@Override
-	public int insertMore(List<Map<String, String>> data) {
-		return mapper.insertMore(data);
+	public List<ResourceManager> findAll(Integer limit, Integer pageIndex,
+			String searchname,Integer pid) {
+		List<ResourceManager> list = mapper.findAll(limit,pageIndex,searchname,pid);
+		return list;
 	}
 
 	@Override
-	public int countStudent(String searchname) {
-		return mapper.countStu(searchname);
+	public int totalCount(String searchname,Integer pid) {
+		return (int) mapper.getResourceManagerCount(searchname,pid);
+	}
+
+	@Override
+	public List<ResourceManager> finddir() {
+		List<ResourceManager> list = mapper.finddir();
+		return list;
 	}
 
 }

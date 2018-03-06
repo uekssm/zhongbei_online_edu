@@ -20,11 +20,32 @@
 
   
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT * FROM uek_acdemic_college limit 10
+  	SELECT a.*,b.name university_name FROM uek_acdemic_college a left join uek_acdemic_university b on a.university_id=b.id
+  			where 1=1
+	  	<if test="name != null">
+	  		and a.name like CONCAT('%', #{name}, '%')
+	  	</if>
+	  	<if test="university_id !=null and university_id>0">
+	  		and a.university_id=#{university_id} 
+	  	</if>
+  	 limit #{pageIndex},#{limit}
   </select>
   <select id="findAllCollege" resultMap="BaseResultMap">
   	SELECT * FROM uek_acdemic_college
   </select>
+  
+  <!-- 取得记录的总数 -->  
+	<select id="getCollegeCount" resultType="java.lang.Integer">  
+	  SELECT COUNT(*) FROM uek_acdemic_college 
+	  	where 1=1
+	  	<if test="name != null">
+	  		and name like CONCAT('%', #{name}, '%')
+	  	</if>
+	  	<if test="university_id !=null and university_id>0">
+	  		and university_id=#{university_id} 
+	  	</if>
+	  	 
+	</select>  
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from uek_acdemic_college

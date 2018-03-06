@@ -46,13 +46,13 @@ function grant_role(value){
           <div class="control-group span8">
             <label class="control-label">名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="universityname">
+              <input type="text" class="control-text" name="name">
             </div>
           </div>
           <div class="control-group span8">
-            <label class="control-label">状态：</label>
+            <label class="control-label">所属专业：</label>
             <div class="controls">
-              <select name="status" class="control-text">
+              <select name="subject_id" class="control-text">
               	<option value="0">请选择</option>
                 <option value="1">正常</option>
                 <option value="2">禁用</option>
@@ -75,25 +75,41 @@ function grant_role(value){
         <input type="hidden" name="id">
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>姓名</label>
+            <label class="control-label"><s>*</s>方向编号</label>
             <div class="controls">
-              <input name="universityname" type="text" data-rules="{required:true}" class="input-normal control-text">
+              <input name="num" type="text" data-rules="{required:true}" class="input-normal control-text">
             </div>
           </div>
           </div>
         <div class="row">
           <div class="control-group span8">
-            <label class="control-label"><s>*</s>密码</label>
+            <label class="control-label"><s>*</s>方向名</label>
             <div class="controls">
-              <input name="password" type="password" data-rules="{required:true}" class="input-normal control-text">
+              <input name="name" type="text" data-rules="{required:true}" class="input-normal control-text">
+            </div>
+          </div>
+          </div>
+        <div class="row">
+          <div class="control-group span8">
+            <label class="control-label">方向介绍</label>
+            <div class="controls">
+              <input name="summary" type="text" class="input-normal control-text">
+            </div>
+          </div>
+          </div>
+        <div class="row">
+          <div class="control-group span8">
+            <label class="control-label">方向封面</label>
+            <div class="controls">
+              <input name="cover_image" type="file" class="input-normal control-text">
             </div>
           </div>
         </div>
        <div class="row">
 	        	<div class="control-group span8">
-		        	<label class="control-label"><s>*</s>用户状态</label>
+		        	<label class="control-label">所属专业</label>
 		            <div class="controls">
-		              	<select  data-rules="{required:true}"  name="status" class="input-normal">
+		              	<select  name="subject_id" class="input-normal">
 			                <option value="">请选择</option>
 			                <option value="0">禁用</option>
 			                <option value="1">正常</option>

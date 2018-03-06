@@ -30,9 +30,16 @@
   	SELECT * FROM uek_acdemic_Students limit 10
   </select> -->
   <select id="findAll" resultMap="BaseResultMap">
-  	SELECT a.*,b.name classname FROM uek_acdemic_Students a left join uek_acdemic_class b on a.class_id=b.id limit 10
+  	SELECT a.*,b.name classname FROM uek_acdemic_Students a 
+  		left join uek_acdemic_class b on a.class_id=b.id 
+		where a.name like CONCAT('%', #{searchname}, '%')  
+  	 	limit #{pageIndex},#{limit}
   </select>
-  
+  <select id="countStu" resultType="java.lang.Integer">  
+	  SELECT COUNT(*) FROM uek_acdemic_Students where name like CONCAT('%', #{searchname}, '%')  
+  </select>
+	
+	
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from uek_acdemic_Students
     where id = #{id,jdbcType=INTEGER}
@@ -40,6 +47,24 @@
   <insert id="insert" parameterType="org.bb.ssm.model.Students" >
     insert into uek_acdemic_Students (id, name, summary)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertMore">
+    insert into uek_acdemic_Students (student_number,name,gender,nation,school,major)
+    values 
+    	<foreach collection="data" item="data" index="index" separator=",">  
+        	( #{data.学号},#{data.姓名},
+        	
+        	<if test="data.性别 =='男'.toString()">
+	        	1
+	        </if>
+	        <if test="data.性别 =='女'.toString()">
+	        	0
+	        </if>
+        	
+        	
+        	
+        	,#{data.民族},#{data.学校},#{data.专业} )  
+       	</foreach>
   </insert>
   <insert id="insertSelective" parameterType="org.bb.ssm.model.Students" >
     insert into uek_acdemic_Students

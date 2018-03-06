@@ -26,7 +26,7 @@ public class CollegeInfoCotroller {
 	private CollegeInfoService collegeInfoService;
 	
 	/**
-	 * 用户列表页
+	 * 学院列表页
 	 * @param map
 	 * @return
 	 */
@@ -38,20 +38,20 @@ public class CollegeInfoCotroller {
 	}
 	
 	/**
-	 * 得到所有用户信息
+	 * 得到所有学院信息
 	 * @param map
 	 * @return
 	 */
-	@RequestMapping(value="/getAllCollege",method=RequestMethod.POST)
+	@RequestMapping(value="/getAllCollege",method={RequestMethod.POST,RequestMethod.GET})
 	@ResponseBody
-	public String getAllCollege(Object pageinfo,Map<String, Object> map){
-		System.out.println(pageinfo);
-		List<College> CollegeList = collegeInfoService.findAll();
+	public String getAllCollege(@RequestParam(value="limit",required=false) Integer limit,@RequestParam(value="pageIndex",required=false) Integer pageIndex,@RequestParam(value="name",required=false) String name,@RequestParam(value="university_id",required=false) int university_id){
+		pageIndex=pageIndex*limit;
+		List<College> CollegeList = collegeInfoService.findAll(limit,pageIndex,name,university_id);
 		
 		HashMap<String,Object > tCollege = new HashMap<String,Object >();
 		
 		tCollege.put("rows", CollegeList);
-		tCollege.put("results", CollegeList.size());
+		tCollege.put("results", collegeInfoService.totalCount(name,university_id));
 		
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -67,7 +67,7 @@ public class CollegeInfoCotroller {
 		return null;
 	}
 	/**
-	 * 通过handler前往添加用户页面
+	 * 通过handler前往添加学院页面
 	 * @param map
 	 * @return
 	 */
@@ -75,33 +75,33 @@ public class CollegeInfoCotroller {
 	public String addCollege(Map<String, Object> map){
 		//因为页面使用spring的form标签，其中属性modelAttribute需要存在bean 要不会报错
 		map.put("command", new College());
-		return "addCollege";
+		return "redirect:/college/getAllCollege?limit=10&pageIndex=0&name=''&university_id=0";
 	}
 	
 	/**
-	 * 添加用户操作
+	 * 添加学院操作
 	 * @param Collegeinfo
 	 * @return
 	 */
 	@RequestMapping(value="/addCollege",method=RequestMethod.POST)
 	public String save(College Collegeinfo){
 		int result = collegeInfoService.insert(Collegeinfo);
-		System.out.println("添加用户的操作结果为："+result);
-		return "redirect:/college/getAllCollege";
+		System.out.println("添加学院的操作结果为："+result);
+		return "redirect:/college/getAllCollege?limit=10&pageIndex=0&name=''&university_id=0";
 	}
 	/**
-	 * 删除用户操作
+	 * 删除学院操作
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value="/delete/{id}",method=RequestMethod.DELETE)
 	public String delete(@PathVariable(value="id") int id){
 		int result = collegeInfoService.deleteByPrimaryKey(id);
-		System.out.println("删除用户的操作结果为："+result+"传递进来的id为："+id);
+		System.out.println("删除学院的操作结果为："+result+"传递进来的id为："+id);
 		return "redirect:/college/getAllCollege";
 	}
 	/**
-	 * 更新前先根据id找到用户信息，回显到页面上
+	 * 更新前先根据id找到学院信息，回显到页面上
 	 * @param id
 	 * @param map
 	 * @return

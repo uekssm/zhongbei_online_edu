@@ -46,13 +46,13 @@ function grant_role(value){
           <div class="control-group span8">
             <label class="control-label">名称：</label>
             <div class="controls">
-              <input type="text" class="control-text" name="universityname">
+              <input type="text" class="control-text" name="name">
             </div>
           </div>
           <div class="control-group span8">
-            <label class="control-label">状态：</label>
+            <label class="control-label">所属学院：</label>
             <div class="controls">
-              <select name="status" class="control-text">
+              <select name="college_id" class="control-text">
               	<option value="0">请选择</option>
                 <option value="1">正常</option>
                 <option value="2">禁用</option>

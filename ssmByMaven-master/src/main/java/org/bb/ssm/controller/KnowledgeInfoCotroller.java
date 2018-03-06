@@ -127,7 +127,7 @@ public class KnowledgeInfoCotroller {
 	 * @param knowledgeinfo
 	 * @return
 	 */
-	@RequestMapping(value = "/addKnowledge", method = RequestMethod.GET)
+	@RequestMapping(value = "/addKnowledge", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addKnowledge(Knowledge knowledgeinfo) {
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxx"+knowledgeinfo);
 		try {

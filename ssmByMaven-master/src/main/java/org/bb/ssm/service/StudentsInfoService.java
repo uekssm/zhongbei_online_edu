@@ -1,6 +1,7 @@
 package org.bb.ssm.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bb.ssm.model.Students;
 
@@ -15,7 +16,7 @@ import org.bb.ssm.model.Students;
  */
 public interface StudentsInfoService {
 
-	List<Students> findAll();
+	List<Students> findAll(Integer limit, Integer pageIndex, String searchname);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -30,4 +31,8 @@ public interface StudentsInfoService {
 	int updateByPrimaryKeySelective(Students record);
 
 	int updateByPrimaryKey(Students record);
+
+	int insertMore(List<Map<String, String>> data);
+
+	int countStudent(String searchname);
 }

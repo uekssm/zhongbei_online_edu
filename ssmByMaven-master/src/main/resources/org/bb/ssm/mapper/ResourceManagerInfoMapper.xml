@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.bb.ssm.mapper.ResourceManagerInfoMapper" >
+  <resultMap id="BaseResultMap" type="org.bb.ssm.model.ResourceManager" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, pid, addtime,url,type,size
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from uek_resource_dirctory_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+ 
+  <select id="finddir" resultMap="BaseResultMap">
+  	SELECT id,name,pid,type FROM uek_resource_dirctory_file
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+  	SELECT * FROM uek_resource_dirctory_file 
+		where 1=1
+		<if test="searchname !=null">
+			and name like CONCAT('%', #{searchname}, '%') 
+			<!-- and type=1 -->
+		</if>
+		and pid=#{pid}
+			
+		limit #{pageIndex},#{limit} 
+  </select>
+  
+  <select id="getResourceManagerCount" resultType="java.lang.Integer">  
+	  SELECT COUNT(*) FROM uek_resource_dirctory_file 
+	  	where 1=1 
+	  	<if test="searchname !=null">
+	  		and name like CONCAT('%', #{searchname}, '%') 
+	  		<!-- and type=1 -->
+	  	</if>
+	  	and pid=#{pid}
+
+	</select> 
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from uek_resource_dirctory_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.bb.ssm.model.ResourceManager"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into uek_resource_dirctory_file (name, pid, addtime,url,type,size)
+    values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{addtime,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{size,jdbcType=VARCHAR})
+  </insert>
+ 
+  
+</mapper>

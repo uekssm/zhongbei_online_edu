@@ -15,7 +15,7 @@ import org.bb.ssm.model.College;
  */
 public interface CollegeInfoService {
 
-	List<College> findAll();
+	List<College> findAll(Integer limit, Integer pageIndex, String name, int university_id);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -32,4 +32,6 @@ public interface CollegeInfoService {
 	int updateByPrimaryKey(College record);
 
 	List<College> findAllCollege();
+
+	Object totalCount(String name, int university_id);
 }

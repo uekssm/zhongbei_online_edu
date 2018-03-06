@@ -38,8 +38,9 @@ public class CollegeInfoServiceImpl implements CollegeInfoService {
 	 * 查询CollegeInfo表所有数据
 	 */
 	@Override
-	public List<College> findAll() {
-		List<College> list = mapper.findAll();
+	public List<College> findAll(Integer limit, Integer pageIndex, String name,
+			int university_id) {
+		List<College> list = mapper.findAll(limit,pageIndex,name,university_id);
 		return list;
 	}
 	
@@ -83,6 +84,11 @@ public class CollegeInfoServiceImpl implements CollegeInfoService {
 	public List<College> findAllCollege() {
 		List<College> list = mapper.findAllCollege();
 		return list;
+	}
+
+	@Override
+	public Object totalCount(String name, int university_id) {
+		return (int) mapper.getCollegeCount(name,university_id);
 	}
 
 }
